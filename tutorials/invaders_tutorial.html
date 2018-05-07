@@ -1,0 +1,170 @@
+<html>
+<head>
+<title>Tutorial: Space Invaders
+</title>
+<style>
+
+p.ex1 {
+    margin-left: 5cm;
+}
+
+p {
+		margin: 5px 50px 5px 50px;
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+<center>
+<img width = 300 src = "http://www.learncodecraft.com/images/cc_logo_2.png"><br>
+<font face="avenir">
+<p>
+<h2>Space Invaders</h2>
+<br>
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>	
+<td align = justify>
+Test the limits of your JavaScript and Woof_JS skills by creating your own version of this classic arcade game. Lots of room for customization here. 
+<br><br>
+You can see an example of the game in action <a href = "http://www.learncodecraft.com/projects/spaceinvaders.html">here</a>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>
+<td align = "center"><br><br><b>Directions</b></td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>	
+<td align = "left">
+<ol style="margin-left: 10px;">
+
+<li>If you are coding outside of WoofJS.com (like in Sublime), insert the Woof_JS source tag into the &lt;head&gt;section of your project page:
+  <p class="tab"><font color='blue' face="courier"> 
+ &lt;script src="https://rawgit.com/stevekrouse/WoofJS/master/dist/woof.js"&gt;&lt;/script&gt;
+</font>	</p>
+Your code now speaks Woof!
+<br>
+<br>
+<li> Find an appropriate space backdrop and add the url using the setBackdropURL call.<br>
+<br>
+
+<li> Find a cool transparent image for your Defender ship and declare a defender ship object using the <font color='blue' face="courier">new Image({})</font> call.<br>
+<br>
+
+<li>Setup a forever function. <br>
+ <p class="tab"><font color='blue' face="courier"> 	
+	forever( function() {<br>
+<br>
+	});<br>
+	</font>	</p>
+This will take care of moving your defender, aliens and missles in real time.<br>
+<br>
+
+<li>In the forever function, get your Defender to move RIGHT and LEFT if arrow keys are pressed. Something like:<br>
+ <p class="tab"><font color='blue' face="courier"> 	
+  if (keysDown.includes("LEFT")){<br>
+         MOVE LEFT<br>
+  }<br>
+	</font>	</p>
+At the top of your code (i.e. the initialization area), setup defenderSpeed as a variable, and move the ship this amount. <br>
+<br>
+
+<li> Check if the Defender is reaching the edge of the screen and react accordingly <br>
+<br>
+<li>Create an array of missle[]. When the space-bar is pressed to fire a missle, declare a missle object using <font color='blue' face="courier">new Circle({})</font>, and then push it into the missle[] array.<br>
+<br>
+<li> In the forever function, go through the missle[] array and move each missle up.  Check if the missle has reached the top of the screen and destroy it by removing it from the array. There are a number of ways to do this.<br>
+
+<br>
+<li> Setup a variable for numInvaders and create an array of invader[] of this size. Cycle thrugh the array and declare an Invader object using the <font color='blue' face="courier">new Image({})</font> call, and push it into the Invader array.  Start small - one row of 3-5 Invaders.<br> 
+<br>
+<li>Write a setUpInvaders() function to sets-up Invaders,  manually adding a second row, then a third. <br>
+<br>
+<li>In the forever function, write a moveInvaders() function that moves the Invaders across the screen, and when they hit an edge, shifts them lower and switches direction. <br>
+<br>
+<li>Write a testInvaderHit() function that cycles through each missle, and for each, cycles through each Invader to see if there is a collision. If there is, add points, and remove the missle and the Invader from their respective arrays.<br>
+<br>
+
+<li> Declare the text-label objects you need (lives and points, and debug if you need it.)   Have them updated inside the forever loop.<br>
+<br>
+<li>  Create an array of bomb[] to hold Invader bombs. Write a dropBomb() function that drops bombs according to your rules. When it does, declare an invader bomb object using <font color='blue' face="courier">new Circle({})</font> and push it into the bomb[] array.<br>
+<br>	
+<li> In your forever loop, cycle through the bomb[] array and move each bomb down.  Check if the bomb has reached the bottom of the screen and destroy it by removing it from the array. There are a number of ways to do this. <br>
+<br>
+<li>Then also check to see if the bomb has a collision with the Defender. If there is, subtract a life, and remove the bomb from its array. <br>
+
+<br>
+<li> Now you are going to add Levels to your game. To make a good user experience, you will need to create a &quot;Game Lobby&quot; which is a screen where players wait for the game to start. 
+<br><br>
+Declare a lobbySign text object and a gameOn BOOLEAN variable, initially set to FALSE.<br>
+<br>
+
+<li> Get ready, this is the advanced stuff! You are going to &quot;wrap&quot; all your action code in the forever function into another function called <font color='blue' face="courier">doAction().</font> <br>
+<br>
+Then write another function, called <font color='blue' face="courier">doLobby()</font>, that shows you the lobbySign message(i.e. READY?) and waits for you to press a key like the space bar or &quot;Y&quot; to start playing. <br>
+<br>
+Finally, add a test inside the forever loop that executes <font color='blue' face="courier">doAction()</font>  if gameOn is TRUE, otherwise executes <font color='blue' face="courier">doLobby()</font>. So when you start the game, the first thing you should see is the Lobby.  <br>
+<br>
+<li> Add variables for level and numInvadersLeft. Once all the Invaders are gone, take us to the lobby, rebuild the Invaders, and if you want, make the game harder by increasing Invader speed, ther shooting rate etc. You can also award bonus points after each level. <br>
+<br>
+<li> Increase the number of Invaders to 20 or 30.  Modify the setUpInvaders function to look at the number of Invaders, calculate the number of rows and columns and positions them in multiple rows. Color them differently based on the row.<br>
+<br>
+<li>Keep working on the project and customizing until you are satisfied. <br>
+Ask your teacher/TA to upload it to your public folder. 
+</ol>
+
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+
+
+
+
+
+
+<center>
+
+
+
+
+
+<br><br>
+<b>
+<br><br>
+
+<br><br>
+(c) 2017 by Code Craft Academy
+</center>
+
+
+
+
+</font>
+
+</body>
+</html>

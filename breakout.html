@@ -1,0 +1,377 @@
+ <head>
+<title>Breakout 5</title>
+
+<script src="https://rawgit.com/stevekrouse/WoofJS/master/dist/woof.js"></script>
+
+<style>
+#projeeect {
+padding: 0;
+margin: 5px;
+display: block;
+width: 800px;
+height: 500px;
+position: left;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+
+//===== 
+//<button id="strartButton" onClick="doMain();" >Start</button><br>
+
+//========= intialize key variables
+var h=(maxY*2)-40;
+var w=(maxX*2)-40;;
+var paddleWidth = 90;
+var dX=3;  //ball X speed 
+var dY=-4; //ball y speed 
+var paddleSpeed = 8;
+var Xedge = maxX-20; 
+var Yedge = maxY-20;
+var escape = 5; //shift ball not to touch between moves
+var points = 0;
+var newLives = 5;
+var lives = newLives;
+var level = 1;
+var maxBlocks = 20; //total number
+var levelBonus;
+
+
+
+
+//========= setup the court
+
+
+//fullScreen = false;
+//setBackdropSize(w, h);
+//setBackdropColor("black");
+setBackdropColor("black ")
+setBackdropURL("https://iso.500px.com/wp-content/uploads/2013/08/11834033-1170.jpeg")
+setBackdropStyle("cover")
+//setBackdropStyle("1000px 600px")
+
+
+
+
+// setup ball & paddle
+
+var ball = new Circle({
+  radius: 6, 
+  color: "red", 
+  x: -350, 
+  y: 150
+})
+
+
+var paddle = new Rectangle({
+  width: paddleWidth, 
+  height: 15, 
+  color: "blue",
+  x: 0, 
+  y: -160,
+})
+
+
+var tennisAudio = new Audio("http://www.learncodecraft.com/images/tennisball.wav");
+var drumpingAudio = new Audio("http://www.learncodecraft.com/images/drumping.wav");
+
+//create blocks
+var blocksLeft;
+var blockRow, blockCol, blockX, blockY;
+var block = [maxBlocks];
+var blockLives = [maxBlocks]; 
+
+
+//create the blocks
+for (var i=0;i<maxBlocks;i++) {
+    block[i]  = new Rectangle({
+        width: 60, 
+        height: 30, 
+        color: "blue",
+        x: 0, 
+        y: 0,
+        })
+
+
+}
+
+
+function setUpBlocks (numBlocks) {
+ 
+    for (var i=0;i<maxBlocks;i++) //clear all blocks
+              block[i].y =  -600; 
+
+    for (var i=0;i<numBlocks;i++) {
+        blockRow = parseInt(i/5)+1; //1, 2, 3
+        blockCol = i%5+1; //1, 2, 3, 4, 5
+        blockX = -200 + (70*blockCol);
+        blockY = 10+(50*blockRow);
+        block[i].x=blockX;
+        block[i].y=blockY;  
+        block[i].showing = true;
+        if (level > 1)  blockLives[i]=2;
+        else blockLives[i]=1;
+        if (blockRow == 1)
+              block[i].color = "orange";
+        else if (blockRow == 2)
+              block[i].color = "red";
+        else  block[i].color = "maroon";
+}
+
+
+}
+
+
+
+//setup display counters
+  var debugText = new Text({x: minX+200, y: maxY - 30, size: 20, showing: false, color: "white"});
+  var titleText = new Text({x: minX+200, y: maxY - 30, size: 20, text: "[ B R E A K O U T ]", color: "white"});
+  var scoreBoardText = new Text({x: 100, y: maxY - 30, text: "Level: "+ level+"   Lives: "+ lives+"  Points:" + points,size: 25, color: "orange"});
+  var newStartSprite = new Text({ showing: false, text: "Ready?", x: 0, y: 0, size: 80, color: "white", fontFamily: "Courier New" });
+  var messageBg = new Rectangle({x: 0, y: -200, rectangleHeight: 50, rectangleWidth: 400, angle: 0, color: "blue", rotationStyle: "NO ROTATE", showing: false});
+
+  var messageText = new Text({x: 5, y: -205, size: 20, text: "", showing: false, color: "white"});
+
+
+
+var lostLivesBg  = new Line({
+  color: "red", 
+  width: 3, 
+  x: minX+20, 
+  y: minY+22, 
+  x1: maxX-20, 
+  y1: minY+22, 
+  showing: false
+})
+
+
+
+  var gameOn = false;
+  numBlocks = 10;
+  setUpBlocks(numBlocks); //first time 
+
+
+//newStartSprite.onClick(function (mouseX, mouseY) {  //setup new game or level
+  doReadyGameSetup();
+//})
+
+
+function doReadyGameSetup() {
+ 
+    ball.x = -350; 
+    ball.y = 150;
+    if (lives==0) {  //lost, start agin
+        lives = newLives;   
+        level = 1;
+        points = 0;
+    }
+    dX=2+level;  //initial ball X speed 
+    dY=-3-level; //initial ball y speed 
+    ball.showing=true;
+    newStartSprite.showing = false;
+    gameOn=false;
+    numBlocks = level > 2 ? 20 : (level+1) *5;
+    blocksLeft = numBlocks;
+    setUpBlocks(numBlocks);
+}
+
+
+// ======== doAction()=========
+
+
+
+forever(() => {
+
+//switch 
+if (gameOn == true) doAction(); else doLobby();
+
+
+function doLobby() {
+  scoreBoardText.text="Level: "+ level+"     Lives: "+ lives+"    Points: " + points;
+  newStartSprite.showing = true; //start with this
+  ball.showing =false;
+
+
+
+  if (keysDown.includes("Y") || keysDown.includes('SPACE') ) {
+        //resize board
+
+        Xedge = maxX-20; 
+        Yedge = maxY-20;
+        h=(maxY*2)-40;
+        w=(maxX*2)-40;
+        paddle.x=0;
+        paddle.y=w/5*-1
+        scoreBoardText.y = maxY - 30
+        titleText.y = maxY - 30
+        lostLivesBg.y = minY+19,
+        lostLivesBg.y1 = minY+19,
+        lostLivesBg.x = minX+20,
+        lostLivesBg.x1 = maxX-20,
+
+      
+
+    doReadyGameSetup();
+    gameOn=true;
+  }
+}
+
+
+function showMessage (text,color,secs) {
+    //messageBg.showing = true;
+    messageText.showing = true;
+    messageBg.color = color;
+    messageText.text = text;
+   // messageBg.sendToBack();
+    messageText.sendToFront();
+    after(secs, "second", () => {
+        //messageBg.showing = false;
+        messageText.showing = false;
+    });
+
+}
+
+
+
+
+
+function doAction() {    //game happens here
+//every(40, "milliseconds", () => {
+//repeatUntil("lives <1", () => {
+
+
+//update latest scores
+scoreBoardText.text="Level: "+ level+"     Lives: "+ lives+"    Points: " + points;
+//debugText.text = blocksLeft + "    dX: "+dX+"   dY: "+dY;
+//debugText.text="DEBUG: dX= " + dX + "  dy= " + dY;
+
+// game.over
+if (lives < 1) {
+    gameOn=false;
+    newStartSprite.size=80;
+    newStartSprite.text = "Play Again?"  
+    return;
+}
+
+
+
+// =====MOVE the BALL =============
+ball.x  += dX;
+ball.y += dY;
+
+// ======= is ball hitting a block
+for (var i=0; i<numBlocks; i++) {
+ 
+    if (ball.touching(block[i])) {
+          drumpingAudio.play()
+          dY = -dY;
+          points += 5;
+
+          if (blockLives[i] == 2) { //first hit only
+              block[i].color = "yellow";
+              blockLives[i] -=1;  
+          } else {               //block is dead
+              //  block[i].delete();  // does not work
+              blockLives[i] -=1;  //all blocks gone?
+              block[i].y =  -600;  //move off-screen
+              blocksLeft -= 1;
+              if (blocksLeft < 1) {  // LEVEL IS DONE
+                    gameOn=false;
+                    levelBonus = lives * level * 10; 
+                    level+=1;
+                    showMessage("+ "+levelBonus+" bonus points.", "orange",5)
+                    points += levelBonus;
+                    newStartSprite.size=40;
+                    newStartSprite.text = "Ready for Level "+level+"?";
+              }
+          }
+    } //touching
+}  //each block
+
+   if (paddle.touching(ball)) {
+        paddle.color = "red";
+        tennisAudio.play()
+        if (dY>0) {
+              dY = -dY;
+              ball.y -= escape;
+        }
+
+        if (dY<0) {
+              dY = -dY;
+              ball.y += escape;
+        }
+   } else  paddle.color = "blue";
+ 
+
+// Ball bouncing off walls
+if(ball.x>Xedge) {  //right
+    ball.x = Xedge - ball.radius/2;
+    dX = -dX;
+
+}
+
+
+if(ball.x < -Xedge) { //left
+    ball.x = -Xedge + ball.radius/2;
+    dX = -dX;
+}
+
+
+if(ball.y > Yedge) {  //upper Y
+    ball.y = Yedge - ball.radius/2;
+    dY = -dY;
+}
+
+
+
+if(ball.y < -Yedge) {  //lower Y
+    ball.y = -Yedge + ball.radius/2;
+    dY = -dY;
+    lives -= 1;
+    lostLivesBg.showing = true;
+    scoreBoardText.sendToFront();
+    after(1.5, "second", () => {
+        lostLivesBg.showing = false;
+    });
+
+
+
+    //showMessage ("You lost a  life.", "red",1);
+  
+
+
+}
+
+
+// ==== move paddle
+
+  if (keysDown.includes("LEFT")){
+     if (paddle.x > (-w/2+50)) 
+               paddle.x -= paddleSpeed;
+  }
+
+
+  if (keysDown.includes("RIGHT")){
+     if (paddle.x < (w/2-paddleWidth+40)) 
+               paddle.x += paddleSpeed;
+  }
+
+
+} // doAction
+
+}); // forever
+
+
+
+
+
+</script>
+</body>
+</html>

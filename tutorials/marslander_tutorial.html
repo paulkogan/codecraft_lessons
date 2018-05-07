@@ -1,0 +1,138 @@
+<html>
+<head>
+<title>Tutorial: Mars Lander
+</title>
+<style>
+
+p.ex1 {
+    margin-left: 5cm;
+}
+
+p {
+		margin: 5px 50px 5px 50px;
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+<center>
+<img width = 300 src = "http://www.learncodecraft.com/images/cc_logo_2.png"><br>
+<font face="avenir">
+<p>
+<h2>Mars Lander</h2>
+<br>
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>	
+<td align = justify>
+You are the pilot of a Mars lander! Can you bring it down safely to the surface of Mars?<br><br>
+
+And here are the coding skills you will learn: <br>
+   1- &quot;Dampening&quot; -- multiplying game variable (such as thrust) by a constant number, found through trial and error, to make the game playable.  <br>
+   2- Procedural World Generation - writing an algorithm to create the world the game will play on. <br>  
+
+ <br>
+To see a working example click <a href = "http://www.learncodecraft.com/projects/marslander.html">here</a>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>
+<td align = "center"><br><br><b>Directions</b></td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>	
+<td >
+<ol style="margin-left: 10px;">
+
+<li>If you are coding outside of WoofJS.com (like in Sublime), insert the Woof_JS source tag into the &lt;head&gt;section of your project page:
+  <p class="tab"><font color='blue' face="courier"> 
+ &lt;script src="https://rawgit.com/stevekrouse/WoofJS/master/dist/woof.js"&gt;&lt;/script&gt;
+</font>	</p>
+Your code now speaks Woof!
+<br><br>
+<li>Select a background appropriate for your game.  Create a Lander with an image you like. 
+
+<br><br>
+<li>Setup variables for:<br>
+  * downSpeed <br>
+  * sideSpeed <br>
+  * downThrust <br>
+  * gravity<br>
+   
+<br>
+<li>Add a forever loop. In the loop, move the rocket by downSpeed and sideSpeed.
+
+<br><br>
+<li>If a key is pressed, increase downThrust otherwise make downThrust zero.  Adjust downSpeed by downThrust and gravity.
+
+<br><br>
+<li>You might notice that its hard to play-balance the game, to make the lander change speed smoothly. Add variables for speedDamper, thrustDamper and gravityDamper and use these when you calculate speed:  <br><br>
+<font color='blue' face="courier">
+   &nbsp;&nbsp; lander.y = lander.y - downSpeed/speedDamper;
+</font>
+<br><br>
+Change these till the lander is flying smoothly. 
+
+<br><br>
+<li>Add text labels to show downThrust and downSpeed. Adjust these so they are human-readable integers (numbers without decimals.  Also add a label to show status messages, i.e. “You Landed!”
+
+<br><br>
+<li>Check if the lander has hit the bottom of the screen, and if the speed is too great, show a crash, with an appropriate graphic. If the speed is good, congratulate the player on a good landing.
+
+<br><br>
+<li>Create your landing terrain. One way to do this is to use a for-loop, and create as many mountain rectangles as you need to fill the screen. Use random numbers to vary the width of each rectangle and also how far the top of each rectangle is away from the previous one. Make sure to add each rectangle to an array. 
+
+<br><br>
+<li>If the width of that rectangles is above the minimum needed to be a landing pad, add a yellow line indicating its safe to land there. 
+
+<br><br>
+<li>As the lander is flying, cycle through all the rectangles and check if the lander is touching any of them. Use the code you had from before to check if the landing speed is safe, and if its a crash or a landing. 
+
+<br><br>
+<li> Test and finish the project till it looks perfect to you.
+
+</ol>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+
+<center>
+
+
+
+
+
+
+<br><br>
+<br><br>
+(c) 2017 by Code Craft Academy
+</center>
+
+
+
+</body>
+</html>

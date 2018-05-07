@@ -1,0 +1,132 @@
+<html>
+<head>
+<title>Tutorial: Reverse-a-Phrase
+</title>
+<style>
+
+p.ex1 {
+    margin-left: 5cm;
+}
+
+p {
+		margin: 5px 50px 5px 50px;
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+<center>
+<img width = 300 src = "http://www.learncodecraft.com/images/cc_logo_2.png"><br>
+<font face="avenir">
+<br>	
+<p>
+<h2>Reverse a Phrase</h2>
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>	
+<td align = justify>
+Ask the user for a phrase and then print out a version of that phrase with the letters reversed back to front. For an example click <a href = "http://www.learncodecraft.com/projects/reverseaphrase.html">here</a><br>
+<br>
+The magic here is done with arrays, a list of similar elements that can be accessed by their location in the array. For example, you might have an array of cars, declared like this:<br>
+
+<p class="tab"><font color='blue' face="courier">
+var  cars []; <br>
+cars = ["Chevy", "Toyota", "VW", "Ford"];<br>
+</font> </p>
+Then
+<p class="tab"><font color='blue' face="courier">
+document.write( cars[2] ); <br>
+</font> </p>
+will print "VW" (arrays start with 0)<br>
+<br>
+
+
+One approach to Reverse-a-Phrase is to use two arrays, one to take all the letters from the initial phrase, and then to walk thru this array back to front, copying the letters, one by one, into the second array. <br>
+<br>
+There are other ways to do this, see if you can try different algorithms. <br>
+
+<br>
+NOTE: This is the most common question asked on technical interviews - "Write a program to reverse a phrase"
+<br>
+
+
+
+</td>
+<td></td>
+</tr></table>
+
+
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>
+<td align = "center"><br><b>Directions</b></td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>	
+<td align = justify>
+<ol style="margin-left: 10px;">
+
+<br>
+<li> Set up your form with these Page Elements:<br>
+* An input field - for the phrase.<br>
+* A buttons - to trigger the action.<br>
+* A text label - on which to show the results.<br>
+<br>
+<li> Setup Your Code<br>
+Create a pair of arrays<br>
+<p class="tab"><font color='blue' face="courier"> 
+          var letters1[];<br>
+          var letters2[];<br>
+</font>	</p>
+Create a function <font color='blue' face="courier">reverseIt()</font> which will do the work.
+<br>
+<br>
+<li> Break up the Phrase <br>
+Take the phrase from the input field, break it up into individual characters and move it to the first array. Use a <font color='blue' face="courier">for</font> loop and the <font color='blue' face="courier">charAt(i)</font> function to walk through the phrase.
+<br><br>
+<li> Reverse it. Now walk thru the first array back to front, copying the letters, one by one, into the second array.<br>
+<br>
+<li> Turn the 2nd array into a string, using the join method:<br>
+
+<p class="tab"><font color='blue' face="courier"> 
+reversePhrase = letters2.join("");
+</font> </p>
+
+<li> Show the new Phrase in your label
+<br><br>
+<li> Clean the code until you&apos;ve fixed all the bugs, and then run the form. <br>
+When done, ask your teacher to upload the project to your public folder, so your friends and family can enjoy it. <br>
+<br>
+
+</ol>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+<center>
+<br><br>
+<br><br>
+(c) 2017 by Code Craft Academy
+</center>
+
+
+</font>
+</body>
+</html>

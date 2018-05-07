@@ -1,0 +1,202 @@
+
+
+
+<head>
+<title>Fractal Tree</title>
+
+<style type="text/css">
+
+body {
+  text-align: center;  
+  font-family: "Palatino Linotype", "Book Antiqua", "Palatino", "serif";
+  font-size: 110%;
+  margin: auto;
+}
+
+button {
+    background-color: white;
+    border: 0px solid grey;;
+    color: grey;
+    padding: 6px 12px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 8px;
+    cursor: pointer;
+    focus: outline:0;
+}
+
+button:focus {outline:0;}
+}
+
+</style>
+
+</head>
+
+
+<body>
+<font face="avenir" size="4">
+<br>    
+<b>The Fractal Tree </b>
+<br>
+<table align = "center" border=0 callspacing=6 >
+<tr>
+<td><button id="plusGrowthButton"  onClick="doPlusGrowth();" >  +  </button>
+</td><td>
+<b><p id="growthLabel"></p></b>
+</td><td>
+<button id="minusGrowthButton" onClick="doMinusGrowth();" >  -  </button>
+</td>
+<td style="width: 350px;"></td>
+<td><button id="plusAngleButton"  onClick="doPlusAngle();" >  +  </button>
+</td><td>
+<b><p id="angleLabel"></p></b>
+</td><td>
+<button id="minusAngleButton" onClick="doMinusAngle();" >  -  </button>
+</td></tr>
+<tr>
+<td align = "center" colspan="3"><i>Growth %</i></td>
+<td style="width: 350px;"></td>
+<td align = "center" colspan="3"><i>Curve %</i></td>
+</tr>
+
+
+</table>
+
+<canvas id="canvas" ></canvas>
+
+<script>
+    //text-decoration: none;
+//setup canvas
+var canvas = document.getElementById("canvas");
+canvas.height = 700;
+canvas.width = 700;
+var ctx = canvas.getContext("2d");
+var w = ctx.canvas.width;
+var h = ctx.canvas.height;
+//ctx.translate(w/2, h-250);  //set 0,0
+
+
+// setup variables
+var deg_to_rad = Math.PI / 180.0;
+var angle = 180;  // initial angle
+var color;
+var len = 80; //branch length
+var minL = 5; //minimum branch size - 5+
+var treeLine1 = 16; //when len gets this small, switch to lightgreen
+var treeLine2 = 9; //when len gets this small, switch to green
+//var stepdown = 0.65;  //how much len should shrink with each iteration, between .65 and .85
+var rootLift = 220;
+var angleChange = 18; //how much each new branch should bend, between 10 and 30
+var growth = 75;
+
+var angleLabel = document.getElementById("angleLabel");
+angleLabel.innerHTML=angleChange;
+var growthLabel = document.getElementById("growthLabel");
+growthLabel.innerHTML=growth;
+
+// One line does all the work in a recursive function
+
+clearCan();
+drawTree(w/2,h-rootLift,angle, len);
+
+
+//=========== FUNCTIONS ==============
+
+function drawLine(x1, y1, x2, y2, color, width) {
+
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    ctx.closePath();
+
+}
+
+
+
+function drawTree(x1, y1, angle, len){
+ 
+
+  if (len > minL)  {
+
+    //find where the branch ends
+    var x2 = x1 + (Math.sin(angle*deg_to_rad) * len);
+    var y2 = y1 + (Math.cos(angle*deg_to_rad) * len);
+    
+    if (len > treeLine1) color = "brown";
+    else  if (len > treeLine2) color = "lightgreen";
+    else  color = "green";
+    
+    //draw the branch
+    drawLine(x1,y1,x2,y2,color,(len/10));
+
+    //  ****  RECURSION *** call this function from this point
+    drawTree(x2, y2, angle - angleChange, len*growth/100);
+    drawTree(x2, y2, angle + angleChange, len*growth/100);
+  }
+}
+
+
+
+function doPlusGrowth() {
+    if (growth < 85) {
+            growth +=1;
+            growthLabel.innerHTML=growth;
+            clearCan();
+            drawTree(w/2,h-rootLift,angle, len);
+    }
+}   
+
+
+
+function doMinusGrowth() {
+    growth -=1;
+    growthLabel.innerHTML=growth;
+    clearCan();
+    drawTree(w/2,h-rootLift,angle, len);
+}   
+
+
+function doPlusAngle() {
+    if (angleChange < 36) {
+            angleChange  +=1;
+            angleLabel.innerHTML=angleChange;
+            clearCan();
+            drawTree(w/2,h-rootLift,angle, len);
+    }
+}   
+
+
+function doMinusAngle() {
+    if (angleChange > 8) {
+            angleChange  -=1;
+            angleLabel.innerHTML=angleChange; 
+            clearCan();
+            drawTree(w/2,h-rootLift,angle, len);
+    }
+}   
+
+
+
+
+
+
+function clearCan() {
+        ctx.beginPath();
+        ctx.fillStyle = 'white';
+        ctx.rect(0,0,w,h);
+        ctx.fill();
+        drawLine(w/2-200,h-rootLift,w/2+200,h-rootLift,"green",3); 
+        ctx.closePath();
+
+}
+
+
+</script>
+</body>
+</html>
+
+

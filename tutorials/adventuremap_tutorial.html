@@ -1,0 +1,127 @@
+<html>
+<head>
+<title>Tutorial: Adventure Map
+</title>
+<style>
+
+p.ex1 {
+    margin-left: 5cm;
+}
+
+p {
+		margin: 5px 50px 5px 50px;
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+<center>
+<img width = 300 src = "http://www.learncodecraft.com/images/cc_logo_2.png"><br>
+<font face="avenir">
+<p>
+<h2>Adventure Map</h2>
+<br>
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>	
+<td align = justify>
+Create a map of your next adventure world. Put together a map of the world you want using terrain types you choose. This could be the beginning of your next big adventure game!<br><br>
+To see a working example click <a href = "http://www.learncodecraft.com/projects/adventuremap.html">here</a>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>
+<td align = "center"><br><br><b>Directions</b></td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>	
+<td >
+<ol style="margin-left: 10px;">
+
+<li>If you are coding outside of WoofJS.com (like in Sublime), insert the Woof_JS source tag into the &lt;head&gt;section of your project page:
+  <p class="tab"><font color='blue' face="courier"> 
+ &lt;script src="https://rawgit.com/stevekrouse/WoofJS/master/dist/woof.js"&gt;&lt;/script&gt;
+</font>	</p>
+Your code now speaks Woof!<br>
+<br>
+<li>Setup a dark background for your project.
+<br><br>
+<li>Think of 5-7 tile types you want to use in your map and find images for each. These can be any size you find, we’ll scale them down to tile size later.
+<br><br>
+<li>Put the URL’s to the tiles in an array. Then create another array of tileNames[] and put the name of each tile in the corresponding cell in that array.
+<br><br>
+<li>Write a function to print out the legend on the side of your screen. HINT: You can iterate through the tiles and the tile names in the same loop. 
+<br><br>
+<li>Now create 2-D array containing your adventure map matrix, like so:
+  <p class="tab"><font color='blue' face="courier"> 
+<pre>
+var mapMatrix = [
+  [1,4,4,4,4,1,2,2,2,2],
+  [1,1,4,4,1,1,1,2,2,2],
+  [1,1,3,5,1,1,1,1,2,4],
+  [1,3,3,5,1,1,2,2,2,5],
+  [4,3,1,1,2,2,3,2,2,2],
+  [4,3,1,1,3,3,3,3,3,2],
+  [1,3,1,1,1,3,3,3,3,2],
+  [3,3,3,1,1,3,3,3,3,3],
+  [3,3,3,3,3,3,3,1,3,3],
+  [3,3,3,3,3,3,3,3,3,3],
+];
+</pre>
+</font>
+<br><br>
+<li>Write your main function, to display the tile map. Use nested FOR-LOOPS to iterate through the 2-D matrix array and read the tile type in each square. Then figure out the X and Y of the tile, and create it using <font color='blue' face="courier"> new Image({}) </font>
+
+<br><br>
+<li>EXTRA CREDIT: Create a simple text-box editor to let you edit the map matrix in the browser.
+<br><br>
+</ol>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+
+<center>
+
+
+
+
+
+<br><br>
+<b>
+<br><br>
+
+<br><br>
+(c) 2016 by Code Craft Academy
+</center>
+
+
+
+
+</font>
+
+</body>
+</html>

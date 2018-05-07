@@ -1,0 +1,135 @@
+<html>
+<head>
+<title>Tutorial: Space Golf
+</title>
+<style>
+
+p.ex1 {
+    margin-left: 5cm;
+}
+
+p {
+		margin: 5px 50px 5px 50px;
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+<center>
+<img width = 300 src = "http://www.learncodecraft.com/images/cc_logo_2.png"><br>
+<font face="avenir">
+<p>
+<h2>World Traveler</h2>
+<br>
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>	
+<td align = justify>
+Create a page for instant travel between cities. When you click on a city, show a picture from the city, the city name and any other information, such as the local time. For an example click <a href = "http://www.learncodecraft.com/projects/world_traveler.html">here</a>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>
+<td align = "center"><br><br><b>Directions</b></td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>	
+<td >
+<ol style="margin-left: 10px;">
+
+<li> Decide on three world cities you love, and find beautiful images to represent each. Save the URL for each image in a notepad. <br>
+<br>
+<li>  Create an HTML Page with 3 buttons on top. Name each button after a city, and clicking each button should run a function corresponding to that city. <br> Something like:<br>
+<p class="tab"><font face="courier" color="blue">
+&lt;button id= &quot;Milan&quot; onClick=&quot;doMilan();&quot;&gt;Take me to Milan&lt;/button&gt;
+</font></p>
+<br>
+<li>  Add a text label (use < p id="cityLabel"> or < div id="cityLabel">) to show the city name. Dont forget to close the tag.<br>
+<br>
+<li>Below, add ONE image tag with the source attribute empty. (<font face="courier" color="blue">< img id=&quot;cityImage&quot; src=""></font>). This is where the image will go after you click one of the buttons.   
+<br><br>
+<li>  Next, go into the < script> section of your code and write the function for your first city. <br> 
+<font face="courier" color="blue">
+<pre>
+&lt;script&gt;
+function doMilan() {
+	
+     //what the function does goes here 
+
+}
+&lt;/script&gt;
+</pre>
+
+</font>
+
+<li>Add code to the fuction to do the following: when the button is clicked, change the src of the image to be URL for the image for that city. So something like:   <br>
+<p class="tab"><font face="courier" color="blue">
+document.getElementById(&quot;cityImage&quot;).src = &quot;yourOwnPhotoOfMilan.jpg&quot;;
+</font></p>
+<br>
+<li> Now, change the innerHTML of the cityLabel to show the name of the city. <br>
+
+
+<br>
+<li>  Change the background color and font of the page to be specific to that city.
+<br><br>
+<li>  Repeat for the other two cities by copying the 1st city function and editing. 
+<br><br>
+<li>  FOR EXTRA CREDIT: Show the local time (HH:MM) in that city. Hint: use <font face="courier" color="blue">var dateTime = new Date ();</font>
+
+
+</ol>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+
+
+
+
+
+
+<center>
+
+
+
+
+
+<br><br>
+<b>
+<br><br>
+
+<br><br>
+(c) 2016 by Code Craft Academy
+</center>
+
+
+
+
+</font>
+
+</body>
+</html>

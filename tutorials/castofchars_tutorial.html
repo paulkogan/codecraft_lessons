@@ -1,0 +1,166 @@
+<html>
+<head>
+<title>Tutorial: Cast of Cars
+</title>
+<style>
+
+p.ex1 {
+    margin-left: 5cm;
+}
+
+p {
+		margin: 5px 50px 5px 50px;
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+<center>
+<img width = 300 src = "http://www.learncodecraft.com/images/cc_logo_2.png"><br>
+<font face="avenir">
+<p>
+<h2>CAST OF CHARS</h2>
+<br>
+<table width = "100%"> 
+<colgroup>
+<col width="120 px"/>
+<col width="450 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>	
+<td align = left>
+Use loops to create unique grids of characters on the page. Let the user choose the size of the grid and the style of the grid, with different character sets, random chars and colors. Make your grids into artwork!<br>
+<br>
+
+Here is <a href = "http://www.learncodecraft.com/elanag/castofchars.html">an example of a finished version</a>
+</td>
+<td></td>
+</tr></table>
+
+
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>
+<td align = "center"><br><br><b>Directions</b></td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>	
+<td align = justify>
+<ol style="margin-left: 10px;">
+
+
+
+<li>Setup a webpage with a Button and a Label. When the button is clicked, have it run a function called makeGrid() (or another name) which prints out 50 "A"s in the Label.<br>
+<br>
+<li>Change makeGrid() to print the 50 &quot;A&quot;s in a grid, with 10 chars per row. (use <font color='blue' face="courier">theOutput += "&lt;br&gt;"</font>)<br>
+ <br>        
+<li>Add two Input fields above the button, that ask for <font color='blue' face="courier">totalNumCharacters</font> and <font color='blue' face="courier">charsPerRow</font>. 
+ Change makeGrid to print totalNumCharacters "A"s instead of 50 . And to break each line after charsPerRow "A"s, instead of 10. <br>
+ <br>        
+ Test this and make sure it works before moving on. <br>
+<br>
+<li>In your HTML section, add a pulldown to ask the user for a Grid Style. Use a &lt;select&gt; tag and three options:
+<p class="tab"><font color='blue' face="courier">
+<pre>
+&lt;select id= "gridStyle"&gt;
+         &lt;option value= &quot;asOnly&quot;>All As&lt;/option&gt;
+         &lt;option value=&quot;allChars&quot;>Show all Characters&lt;/option&gt;
+         &lt;option value=&quot;randomEnglish&quot;>Random Ennglish&lt;/option&gt;
+&lt;/select&gt;
+</pre></font>
+</p>
+<li>In your makeGrid() function, use an if-then switch to print different versions of the grid, based on what the user selected in the pulldown, as in:
+<p class="tab"><font color='blue' face="courier">
+<pre>
+if (gridStyle === "asOnly") {
+
+          //do asOnly
+
+} elseif (gridStye === "allChars") {
+
+        //do allChars
+
+} elseif (gridStye === "randomEnglish") {  
+</pre></font>
+</p> 
+etc... <br>  
+ <br>  
+<li>Write the AllChars grid style, where you show sequential characters, starting with A. <br>  
+ <br>  
+Note:  <br>  
+<font color='blue' face="courier">String.fromCharCode(65);</font> will display &quot;A&quot; <br>  
+<font color='blue' face="courier">String.fromCharCode(66);</font> will display &quot;B&quot; <br>  
+<br>          
+ 
+<li>Change AllChars to print the code number and then the character on each line, as in:   
+ <pre>  
+65)      A 
+66)      B   
+67)      C 
+etc.
+</pre>
+Pick a big number for chars to display, like  5,000, and you'll see different character sets you can play with. <br>
+<br> 
+<li> Write a new function to return a random number up to X. something like:
+<br> 
+<font color='blue' face="courier">  function randomNumber(max) {<br> 
+
+ &nbsp; &nbsp; &nbsp;    // return a random number using math.Random() between 0 and max<br> 
+
+}<br> </font>
+
+ <br>
+Test it by outputting a list of random numbers on the page.<br>
+<br>
+
+<li>Modify randomNumber to return a number between min and max, as in <font color='blue' face="courier">randomNumber(min, max)</font><br>
+<br>
+<li>Write the randomEnglish grid Style where you show a random character  between A and Z<br>
+  Note: the code for "Z" is 91.<br>
+<br>
+
+<li>Look at the AllChars list to see where character sets begin and end.<br> 
+<br>
+Create other gridStyles such as:<br>
+* Alphabet Repeat - repeat the alphabet, just a-z, as often as needed<br>
+* Random Hebrew - random letters from the hebrew alphabet.<br>
+* Random Greek - random letters from the Greek alphabet.<br>
+* Your own interesting variation.<br>
+<br>
+<li>Add a checkbox that, if checked, assigns a different random color to each letter<br>
+
+</ol>
+
+Have fun and good luck!
+
+
+
+<br>
+</td>
+<td></td>
+</tr></table>
+
+<center>
+
+<br><br>
+(c) 2017 by Code Craft Academy
+</center>
+<br><br>
+
+
+</font>
+
+</body>
+</html>

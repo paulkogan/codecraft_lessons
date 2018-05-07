@@ -1,0 +1,125 @@
+<html>
+<head>
+<title>Tutorial: Weather API
+</title>
+<style>
+
+p.ex1 {
+    margin-left: 5cm;
+}
+
+p {
+		margin: 5px 50px 5px 50px;
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+<center>
+<img width = 300 src = "http://www.learncodecraft.com/images/cc_logo_2.png"><br>
+<font face="avenir">
+<p>
+<h2>See the Weather Anywhere</h2>
+<br>
+<table width = "100%"> 
+<colgroup>
+<col width="120 px"/>
+<col width="450 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>	
+<td align = center>
+
+API's rule the world! <br>
+API=Application Programming Interface, a &quot;door&quot; some platforms leave open so you can get data from them.  APIs let you take advantage of super powerful platforms, like openWeather, Google and Instagram, to add cool features to your projects, usually for free. <br><br>
+In this project we will work with our first API to show weather data.<br>
+<br>
+Here is <a href = "http://www.learncodecraft.com/projects/getweather.html" target='_blank'>an example of a finished version</a>
+</td>
+<td></td>
+</tr></table>
+
+
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>
+<td align = "center"><br><br><b>Directions</b></td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>	
+<td align = justify>
+<ol style="margin-left: 10px;">
+
+
+
+<li> Create at HTML page with an input field (city), a button and a label. Test to make sure it works: when you type something into the field and press the button, have it appear on the label. 
+<br><br>
+
+<li>  Set up your own account on <a href = "http://openweathermap.org/appid">openweathermap.org</a>. Get an API key and save it as a variable in your code.
+<br><br>
+<li> Look up the documentation on <a href = "http://openweathermap.org/current">https://openweathermap.org/current</a>
+to get the syntax for a weather call using a city name. Make sure to add your APPID to the call. 
+Create a request string using the City Name input and show it on the page
+<br><br>
+<li> Look up and understand JavaScript's XMLHttpRequest() method.
+<br><br>
+
+<li> Setup an XMLHttpRequest object (call it myXHR or similar). Add an eventListner to it. The event listener has a function that will do all the work of parsing the reply. It looks something like:
+<p class="tab"><font color='blue' face="courier">
+<pre>
+myXHR.addEventListener("readystatechange", function()  {
+
+     WORK HAPPENS HERE
+ 
+}, true);
+</pre></font>
+</p>
+
+And don't forget to open and send your request.
+
+<br><br>
+<li> In the eventListener work function, get a response object and display the JSON on the page. Hint: use   <font color='blue' face="courier">JSON.parse(myXHR.responseText)</font>
+<br><br>
+<li> Now that you see the JSON, pull the elements you want out of the response and display them on the page. 
+<br><br>
+<li> EXTRA CREDIT - look at the conditions for your selected city, and change the page background to an image showing the weather there. 
+<br><br>
+
+<li> Finish the project till it looks perfect to you.
+<br><br>
+
+</ol>
+
+Have fun and good luck!
+
+
+
+<br>
+</td>
+<td></td>
+</tr></table>
+
+<center>
+
+<br><br>
+(c) 2017 by Code Craft Academy
+</center>
+<br><br>
+
+
+</font>
+
+</body>
+</html>

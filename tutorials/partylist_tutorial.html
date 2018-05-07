@@ -1,0 +1,157 @@
+<html>
+<head>
+<title>Tutorial: Party List 1
+</title>
+<style>
+
+p.ex1 {
+    margin-left: 5cm;
+}
+
+p {
+		margin: 5px 50px 5px 50px;
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+<center>
+<img width = 300 src = "../images/cc_logo_2.png"><br>
+<font face="avenir">
+<br>	
+<p>
+<h2>Party List</h2>
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>	
+<td align = justify>
+You are having a party! Lots of your friends are coming so you want to manage your guest list on-line.  <br>
+<br>
+Lets build a page that asks the user for their Name and their School, adds them to the guest list, and then lets us see the latest list.  Although this seems  simple, the real goal is to help you take your first steps into saving data in stateful storage  - a database!  Databases take your coding to a whole new level by allowing you to save data between sessions, and then to search and manipulate the data in a lot of cool ways.  <br>
+<br>
+For his project, we will be using Google&apos;s Firebase &quot;cloud database.&quot;  You are first going to build a page that saves the data locally, and then transition to saving it in the Firebase database.<br>
+<br>
+For an example click <a href = "http://www.learncodecraft.com/projects/partylist.html">here</a>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>
+<td align = "center"><br><b>Directions</b></td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>	
+<td align = justify>
+<ol style="margin-left: 10px;">
+
+<li> Create a page with these Page Elements:<br>
+* 2 input fields - one for the name, one for the school.<br>
+* 2 buttons - one to add the new guest, one to show the list of guests.<br>
+* A text label - on which to show the list.<br>
+<p class="tab"><font color='blue' face="courier">
+&lt;input type = &quot;text&quot; id=&quot;showListLabel&quot;  value=&quot;&quot;&gt;<br>
+</font>	</p>
+<br>
+
+<li>Add a function <font color='blue' face="courier">addGuest()</font> which takes the input information - name, school - and adds those to a guestList string, using something like:<br>
+<p class="tab"><font color='blue' face="courier"> 
+          guestList += newGuestInfo;
+</font>	</p>
+<br>
+<li> Add a second function <font color='blue' face="courier">showList()</font> that displays the guestList in the text label. <br>
+Fix all the bugs and make sure this runs smoothly.<br>
+<br>
+<li>Now, what happens if you close the web page? Is your guest list saved (does it persist, in tech-speak)?  No!  This is clearly a problem for anyone without a photographic memory.  Lets setup a database so your guest list can persist when you are off-line. <br>
+<br>
+First, setup a Google Firebase account at 
+<a href = "https://firebase.google.com">https://firebase.google.com</a><br>
+<br>
+<li> Log into your console and create a new project as described here: 
+<a href = "https://firebase.google.com/docs/web/setup ">https://firebase.google.com/docs/web/setup</a><br>
+Name it something like &quot;PartyCloudBase&quot;.<br>
+<br>
+
+<li>Click on the project and choose &quot;Add FireBase to your web app.&quot;  Follow instructions to add Firebase config info to your Party List HTML page. Something like:
+<p class="tab"><font color='blue' face="courier">
+          var config = {<br>
+		     &nbsp;&nbsp;  &nbsp;&nbsp; CONFIG DETAILS HERE<br>
+          } <br>
+          firebase.initializeApp(config);<br>
+          var partyFB = firebase.database();<br>
+</font>	</p>
+<br>
+<li> Now we need to change database permissions so your Party List page can read from your database. Choose your PartyCloudBase project in the console and choose Database in the left-hand menu bar. Then choose &quot;RULES&quot;.   Change the rules config details to allow everyone to have access to your database. (This is OK for now, while we are only storing test data) <br>
+<br>
+<li> Modify your addGuest() function to add the new guest info to your PartyCloudBase, in addition to saving it locally.
+Use the <font color='blue' face="courier">set()</font> method. The code will be something like:<br>
+<p class="tab"><font color='blue' face="courier">           
+          partyFB.ref(newName+newSchool).set({  <br>      
+            &nbsp;&nbsp; name: newName, <br>
+            &nbsp;&nbsp; school: newSchool,<br> 
+          });<br>
+</font>	</p>
+<br>
+<li> Add showing the contents of the databse list to the showList function:<br> 
+<p class="tab"><font color='blue' face="courier">
+
+
+          peopleList2 = &quot;People from the Database:&quot;;<br> 
+          usersRef.once(&quot;value&quot;, function(snapshot) {<br> 
+                    &nbsp;&nbsp; snapshot.forEach(function(childSnapshot) {<br> 
+                    &nbsp;&nbsp; personObj = childSnapshot.val();<br> 
+                    &nbsp;&nbsp; personString = personObj.name;<br> 
+                    &nbsp;&nbsp; personString += &quot;, &quot; +personObj.school+&quot;<br>&quot;;<br> 
+                    peopleList += personString; <br> 
+                });<br> 
+          });
+         peopleList2 += &quot;</left>"&quot;; <br> 
+       <br> 
+      };<br> 
+</font> </p>
+
+
+
+
+<li> Clean the code until you&apos;ve fixed all the bugs, and then run the Web Page. Add a few names to the Guest List. Now go to your console and click on &quot;Database&quot; in the left-hand nav. Do you see the names you&apos;ve added?<br>
+<br>
+If so congratulations, you&apos;ve just built your first database app!<br>
+ <br>
+<li> We will make use of more database features in the next tutorial. 
+</ol>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+
+<center>
+<br><br>
+<br><br>
+(c) 2016 by Code Craft Academy
+</center>
+
+
+</font>
+</body>
+</html>

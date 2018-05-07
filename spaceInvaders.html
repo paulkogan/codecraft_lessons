@@ -1,0 +1,366 @@
+<html>
+<head>
+
+
+<script src="https://rawgit.com/stevekrouse/WoofJS/master/dist/woof.js"></script>
+
+<title>
+Space Invaders PK
+</title>
+<style>
+
+</style>
+</head>
+<body>
+<script>
+
+
+//fullScreen = false; 
+//setBackdropSize(w, h);
+setBackdropURL("https://staticdelivery.nexusmods.com/mods/120/images/442-2-1226780166.jpg");
+var enemyMove = 1;
+var w=800;
+var h=500;
+var score = 0;
+var bombLive = false;
+var numEnemies = 5;
+var enemiesLeft;
+var shooterSpeed = 4;
+var numEBombs = numEnemies;
+var enemy = [numEnemies];
+var enemyBomb = [numEnemies];
+var enemyBombLive = [numEnemies];
+var rowStart = 300;
+var columnStart = -300;
+var enemyColumn;
+var enemyRow;
+var spinNum;
+var lives= 4;
+
+var livesText = new Text({x: -150, y: maxY - 30, size: 20, color: "yellow"});
+var pointText = new Text({x: minX+120, y: maxY - 30, size: 20, color: "yellow"});
+
+
+var EBLText1 = new Text({x: 0, y: -50, size: 20, color: "blue", text: " "}); 
+var EBLText2 = new Text({x: 0, y: -100, size: 20, color: "blue", text: " "});
+
+//url: "http://4.bp.blogspot.com/-etyNTo8hpIE/Uf8BfJYeymI/AAAAAAAAA5Q/9emQpKVj1fo/s1600/fighter-01.png", 
+
+
+
+
+
+var earth = new Image({
+	url: "https://i.vimeocdn.com/video/424130492_960.jpg", 
+	    height: 400, 
+	    width: 2000, 
+	    showing: true, 
+	    x: 0, 
+	    y: -200
+	});
+
+
+var space = new Image({
+	url: "https://staticdelivery.nexusmods.com/mods/120/images/442-2-1226780166.jpg", 
+	    height: 400, 
+	    width: 2000, 
+	    showing: true, 
+	    x: 0, 
+	    y: 0
+	});
+
+var lobbyText = new Text({x: 0, y: 100, size: 30, color: "blue", text:" "}); 
+
+var shooter = new Image({
+	url: "http://4.bp.blogspot.com/-etyNTo8hpIE/Uf8BfJYeymI/AAAAAAAAA5Q/9emQpKVj1fo/s1600/fighter-01.png", 
+	    height: 60, 
+	    width: 50, 
+	    showing: true, 
+	    x: 0, 
+	    y: minY+80
+	});
+
+var bomb = new Rectangle({ color: "blue", 
+	width: 3, 
+	height: 10, 
+	showing: false, 
+	x: 0, 
+	y: 0
+
+});
+
+
+
+
+
+var shootAudio = new Audio("http://www.learncodecraft.com/images/shoot.wav");
+var invaderKilledAudio = new Audio("http://www.learncodecraft.com/images/invaderkilled.wav");
+var shipDieAudio = new Audio("http://www.learncodecraft.com/images/explosion.wav");
+//var shipDieAudio = new Audio("http://www.learncodecraft.com/images/si_ship_die.wav");
+var invaderBg = new Audio("http://www.learncodecraft.com/images/fastinvader4.wav");
+
+//setup enemies=============
+for (var i = 0; i <numEnemies; i++){
+
+	enemy[i] = new Image({
+		url: "https://lh3.googleusercontent.com/-pcBAE1r-Oig/VVVwZNuPr9I/AAAAAAAADzs/xv_vtMExM8c/w600-h600/Small%2BInvader.png",
+		height: 30, 
+		width: 30, 
+		showing: true, 
+		x: 0, 
+		y: 60});
+
+	enemyRow = parseInt(i/7) + 1;
+	enemyColumn = i%7 + 1;
+	enemy[i].y = rowStart - enemyRow * 50;
+	enemy[i].x  =columnStart + enemyColumn * 60;	
+
+//setup  Enemy bombs 
+   enemyBomb[i] = new Rectangle({ 
+   	color: "red", 
+  	width: 3, 
+	height: 10, 
+   	showing: false, 
+   	x: enemy[i].x, 
+   	y: enemy[i].y
+   });
+
+   enemyBombLive[i] = 0;
+   
+} //for loop enemies
+
+enemiesLeft = numEnemies;
+
+// show bomb status
+function showBombStatus() {
+   var listOfBombs = " "; 
+	for (var i = 0; i <10; i++){
+	     if (enemyBombLive[i]===1)  
+         listOfBombs += " ("+ i+") "; 
+	}
+     EBLText1.text = listOfBombs;
+
+    var listOfBombs = " "; 
+	for (var i = 10; i <21; i++){
+	 if (enemyBombLive[i]===1) 
+	      listOfBombs += " ("+ i+") ";
+	}
+      EBLText2.text = listOfBombs;
+
+
+
+}
+
+function launchNewEBomb (){
+	    spinNum = random(0, 21);
+	    //EBLText2.text = "Spin :"+spinNum;
+	    if ((spinNum < numEBombs) && (enemyBombLive[spinNum] === 0) ) { //make bomb live
+	             enemyBombLive[spinNum] = 1;
+	             enemyBomb[spinNum].x = enemy[spinNum].x;
+				 enemyBomb[spinNum].y = enemy[spinNum].y; 
+	             enemyBomb[spinNum].showing = true;             
+	             
+	    }
+
+}
+
+
+
+//move enemies
+function moveEnemies(){
+  // invaderBg.play();
+
+	for (var i = 0; i <numEnemies; i++){  //enemy moving
+		       enemy[i].x += enemyMove;
+		       
+		if(enemy[i].x > maxX) {   //enemies hit wall
+             enemyMove *= -1;
+		}
+		
+		if(enemy[i].x < -minX) { 
+		enemyMove *= -1;
+		}
+	}
+}
+
+
+//move enemyBombs
+function moveEBombs() {
+	for (var i = 0; i <numEBombs; i++){  //enemy moving
+			if(enemyBombLive[i] === 1){  //this bomb
+			enemyBomb[i].y -= 3; 
+			
+			
+			if(enemyBomb[i].y < minY) { 
+				 enemyBombLive[i] = 0;
+	             enemyBomb[i].x = 5000;
+				 enemyBomb[i].y = 5000; 
+	             enemyBomb[i].showing = false;      
+			
+			}
+			
+			if (shooter.touching(enemyBomb[i])) {
+				 shooter.url="http://img.clipartfest.com/9b4a8cc8080052dc15007abe56aed380_explosion-clip-art-at-clker-explosion-clipart-animation_600-475.png"
+				 shipDieAudio.play();
+				 enemyBombLive[i] = 0;
+	             enemyBomb[i].x = 5000;
+				 //enemyBomb[i].y = 5000; 
+	             enemyBomb[i].showing = false;      
+				 lives = lives - 1;
+				}		
+
+		}
+			
+			
+			
+	}
+		
+}
+
+every(.5, "seconds", function(){
+
+		launchNewEBomb();
+});
+
+function playInvaderBGMusic1(time) {
+
+               var period = time/10;
+				every(".5", "seconds", function() {
+						   	invaderBg.play(); 
+				});	
+
+}
+
+
+function playInvaderBGMusic2(time) {
+
+		repeat(100, function(){
+               var period = time/10;
+				after("1", "seconds", function() {
+					invaderBg.play();	  
+				});
+				 	
+		});	
+
+}
+
+function moveEnemiesDown () {
+		for (var i = 0; i <numEnemies; i++){  //test each enemy for hit
+				enemy[i].y -=20;
+		}
+
+}
+
+
+
+//playInvaderBGMusic1(7);
+bombLive = false;
+
+forever(() => {
+
+//		moveEnemies();
+		moveEBombs();
+		//showBombStatus();
+
+
+	   pointText.text = " "
+	   livesText.text = "  Score: " + score+ "   Lives: " + lives + "   Invaders: "+ enemiesLeft;
+
+
+		
+	   if (keysDown.includes("RIGHT")){
+	   shooter.x += shooterSpeed;
+	   }
+
+	   if (keysDown.includes("LEFT")){
+	   shooter.x -= shooterSpeed;
+	   }
+
+onKeyDown(key => {
+    if ((key == 'SPACE') && (bombLive==false)) {
+
+ //   if (keysDown.includes('SPACE')) {
+
+			 bombLive = true;
+			 bomb.x = shooter.x;
+			 bomb.y = shooter.y+10;
+			 shootAudio.play();
+
+	   }  //close if
+});	//close onKeysDown
+
+
+// move my bomb
+	   if ( bombLive == true) {
+			  bomb.showing = true;
+			  bomb.y += 5;
+
+	   }
+
+for (var i = 0; i <numEnemies; i++){  //test each Invader
+
+		enemy[i].x += enemyMove;
+		       
+		if(enemy[i].x > maxX-100) {   //enemies hit wall
+             enemyMove *= -1;
+             moveEnemiesDown();
+		}
+		
+		if(enemy[i].x < minX+100) { 
+		     enemyMove *= -1;
+             moveEnemiesDown();
+		}
+	
+       	if(enemy[i].y < -160) { 
+		     lobbyText.text = "Earth is LOST!";
+             //shooter.y=-5000;
+             freeze();
+		}
+
+
+
+		if ( bomb.touching(enemy[i])){  //invader is HIT!
+			   bomb.x = -10000;
+			   bomb.y= 10000;
+		       bombLive = false;
+		       enemy[i].y = 10000;
+		       score = score + 5;
+		       enemiesLeft -= 1;
+		       if (enemiesLeft === 20) enemyMove  *= 2;
+		       if (enemiesLeft === 7) enemyMove *= 1.5;
+		       invaderKilledAudio.play();
+		       	//moveEnemies();
+
+		}
+
+
+
+} //close enemies loop
+
+
+		if (lives === 0){
+		lobbyText.text = "Earth is LOST!";
+		shooter.y=-5000;
+		}
+
+
+		if (enemiesLeft === 0) {
+		lobbyText.text = "You did it! Earth is saved!"
+		
+		}
+
+	   
+if(bomb.y > maxY-50 ) {  //bomb goes offscreen
+	bomb.x = -10000;
+	bombLive = false;
+	bomb.y= -10000
+
+}
+
+}); // close forever
+
+
+
+</script>
+</body>
+</html>

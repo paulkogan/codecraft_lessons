@@ -1,0 +1,103 @@
+<head>
+<title>Cast of Chars</title>
+<style type="text/css">
+body {
+  text-align: left;  
+  font-family: "avenir";
+  font-size: 110%;
+  margin: 75px;
+}
+</style>
+</head>
+<body>
+
+
+<center>
+<h1>Cast of Chars</h1>
+</center>
+
+Total chars to show:  &nbsp; &nbsp;<input type="text" id="totalInput" size="5" ><br>
+Characters per row: &nbsp;&nbsp; <input type="text" id="rowInput" size="5"><br>
+Content algorithm: &nbsp; &nbsp;
+<select id="charStyle">
+  <option value="allas">All B's</option>
+ <option value="starta">Start with A</option>
+  <option value="ranlet">Random Letters</option>
+  <option value="ranchar">Random Characters</option>
+</select>
+
+
+<button id = "goButton" onClick = "makeBlock();"> Go</button>
+
+<br><br>
+<p id="label" align="center"> </p>
+
+
+
+
+
+<script>
+
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+
+function makeBlock() { 
+
+			var label = document.getElementById("label");
+
+			var totalCharsToPrint = parseInt(document.getElementById("totalInput").value);
+			var charsPerRow =  parseInt(document.getElementById("rowInput").value);
+			//totalCharsToPrint = 1000;
+			//charsPerRow =  30;
+			var charStyle =  document.getElementById("charStyle").value;
+			var theOutput = ""
+			var printedSoFar = 0
+			var printChar = "B "
+    
+
+
+			for(var i=1; i<=totalCharsToPrint; i++){//outer loop start
+				
+                if (charStyle==="allas")   {
+                	   
+                	   printChar = String.fromCharCode(65);
+
+                } else if (charStyle==="starta")  {
+
+                	   printChar = String.fromCharCode(64+i);
+
+                } else if (charStyle==="ranlet")  {
+
+                	   printChar = String.fromCharCode(getRndInteger(65,(65+25)));
+
+                } else if (charStyle==="ranchar")  {
+
+                	   printChar = String.fromCharCode(getRndInteger(0,1000));
+
+                } else  {
+
+                	   printChar = "V"
+                }
+
+
+
+				theOutput+= printChar
+				printedSoFar +=1
+						
+						if (printedSoFar==charsPerRow){
+							printedSoFar=0
+							theOutput += "<br>"
+						}//close if statement
+			}//close for loop
+
+
+			label.innerHTML = theOutput
+
+			
+} //close function
+
+</script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+
+
+
+<head>
+<title>Color Machine</title>
+
+<style type="text/css">
+
+body {
+  text-align: center;  
+  font-family: "Courier", "Palatino Linotype", "Book Antiqua", "Palatino", "serif";
+  font-size: 110%;
+  margin: auto;
+}
+
+
+
+
+#redMinus, #redPlus {
+  background-color: red;
+
+}
+
+#greenMinus, #greenPlus {
+  background-color: green;
+
+}
+
+#blueMinus, #bluePlus {
+  background-color: blue;
+
+}
+
+ #label {
+  display: inline-block;
+}
+
+
+
+#box {
+    margin: auto;
+    margin-top: 10%;
+    margin-bottom: 20%;
+    border: 3px solid lightgrey;
+    width: 400px;
+
+}
+
+button {
+    width: 50px;
+    height: 50px; 
+    border: 1px solid grey;;
+    padding: 6px 12px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 8px;
+    cursor: pointer;
+    box-shadow: 2px 2px 8px black;
+    border-radius: 10px;
+}
+
+button:focus {outline:0;}
+
+
+}
+
+
+
+
+</style>
+</head>
+<body>
+<br><br>
+<h2>The Color Machine</h2>
+
+
+<div id="box">
+
+<div id = "label">
+[....]
+</div>
+<br>
+<div id="redbox">
+   <button id="redPlus" onclick="redPlus();"> + </button>
+  <button id="redMinus" onclick="redMinus();"> - </button>
+</div>
+
+
+<div id="greenbox">
+    <button id="greenPlus" onclick="greenPlus();"> + </button>
+    <button id="greenMinus" onclick="greenMinus();"> - </button>
+</div>
+<div id="bluebox">
+    <button id="bluePlus" onclick="bluePlus();"> + </button>
+    <button id="blueMinus" onclick="blueMinus();"> - </button>
+</div>
+
+<br>
+
+</div>
+
+
+
+
+<script>
+
+var redPlusButton = document.getElementById("redPlus");
+var label = document.getElementById("label");
+var box = document.getElementById("box");
+
+//redPlusButton.style.backgroundColor = 'lightred';
+
+var redC = 120;
+var greenC = 120;
+var blueC = 120;
+setColor();
+
+function redPlus() {
+         if (redC <255) redC += 5;
+         setColor();
+}
+
+
+
+function redMinus() {
+         if (redC > 0) redC -= 5;
+         setColor();
+ 
+}
+
+function greenPlus() {
+         if (greenC <255) greenC += 5;
+         setColor();
+}
+
+
+
+function greenMinus() {
+         if (greenC > 0) greenC -= 5;
+         setColor();
+ 
+}
+
+function bluePlus() {
+         if (blueC <255) blueC += 5;
+         setColor();
+}
+
+
+
+
+function blueMinus() {
+         if (blueC > 0) blueC -= 5;
+         setColor();
+ 
+}
+
+
+
+function setColor() {
+         label.innerHTML = "<br>RGB = { "+redC+" : "+greenC+" : "+blueC+" }<br><br>";
+
+         document.body.style.backgroundColor = 'rgb(' + greenC + ',' + redC + ',' + blueC + ')';
+         box.style.backgroundColor = 'rgb(' + redC + ',' + greenC + ',' + blueC + ')';
+         box.style.backgroundColor = "rgb(100,100,00)";
+
+
+}
+
+
+
+
+
+
+</script>
+
+
+
+</body>
+</html>
+

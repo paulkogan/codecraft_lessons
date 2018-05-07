@@ -1,0 +1,132 @@
+<html>
+<head>
+<title>Tutorial: Bananas
+</title>
+<style>
+
+p.ex1 {
+    margin-left: 5cm;
+}
+
+p {
+		margin: 5px 50px 5px 50px;
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+<center>
+<img width = 300 src = "http://www.learncodecraft.com/images/cc_logo_2.png"><br>
+<font face="avenir">
+<p>
+<h2>Flying Bananas</h2>
+<br>
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>	
+<td align = justify>
+Create a sprite game with multiple flying objects -- bananas -- that you need to catch. In this game, we also added pedestrians, which lose points if they are hit by bananas.  Both bananas and pedestrians need to go into arrays, where you can move them and check any collisions using a forEach loop. 
+ <br><br>
+You can &quot;mod&quot; this game in any way you like - change bananas to cupcakes or fireballs!
+ <br>
+To see a working example click <a href = "http://www.learncodecraft.com/projects/bananas.html">here</a>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>
+<td align = "center"><br><br><b>Directions</b></td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>	
+<td >
+<ol style="margin-left: 10px;">
+
+<li>If you are coding outside of WoofJS.com (like in Sublime), insert the Woof_JS source tag into the &lt;head&gt;section of your project page:
+  <p class="tab"><font color='blue' face="courier"> 
+ &lt;script src="https://rawgit.com/stevekrouse/WoofJS/master/dist/woof.js"&gt;&lt;/script&gt;
+</font>	</p>
+Your code now speaks Woof!<br>
+<br>
+<li>Select a background appropriate for your game.  Create a Catcher with an image you like.
+<br><br>
+<li>Have the Catcher &quot;glide&quot; using direction keys. This means that when you press a direction key, you don't change the Catcher's x or y position but rather their xVelocity or yVelocity. 
+<br><br>
+ HINT: don't forget to add friction to slow them down a little bit over time. 
+
+
+<br><br>
+<li>Make sure the catcher reacts properly when they hit an edge of the screen. They can pass thru to the other side of the screen, stop or bounce. 
+
+<br><br>
+<li>Pick a Flying Object you want to fly at the Catcher. (apple, bowling ball?) Have one created Every second or two at the top or side of the screen, depending on if they are flying sideways or falling down.  Remember to push each one into an array.
+
+<br><br>
+<li>Now, use a forEach loop to move every Flying Object. If the flying object hits the edge of the screen, have it be deleted from the screen and from the array.  
+
+<br><br>
+<li>Check if  one of the Flying Objects is hitting the Catcher. If so, remove it.  Then add or subtract points, show a fun collision graphic and play a sound if you want. 
+
+<br><br>
+<li>Add a score indicator on top of the screen. This can either be a text object, showing the number of points, or a &quot;health bar&quot; Rectangle object that changes its width with the score.
+
+<br><br>
+<li>Now add another set of moving sprites  - Target Sprites. These can protect your Catcher or get hit if your Catchers fails to catch a Flying Object. 
+
+<br><br>
+<li>If you want to have each Target Sprite look different, find different images and put them all into an Image Array. Then when you are creating a new Target Sprite, generate a random number, and assign the url: attribute to be one of the images in the Image Array, like:
+<pre>
+<font color='blue' face="courier">
+var targetSprite = new Image ({
+     url: arrayOfImages[randomNumber],
+     height:   etc 
+})
+ </font>
+</pre>
+<br>
+<li> Test and finish the project till it looks perfect to you.
+
+</ol>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+
+<center>
+
+
+
+
+
+
+<br><br>
+<br><br>
+(c) 2017 by Code Craft Academy
+</center>
+
+
+
+</body>
+</html>

@@ -1,0 +1,233 @@
+<html>
+
+
+
+<head>
+<title>Matrix Calculator</title>
+</head>
+<style type = "text/css">
+
+button {
+    border:0;
+    color: black;
+    background: lightgreen;
+    width:50px;
+    height:50px;
+    margin-left:5px;
+    border-radius:4px;
+    font-family: Courier;
+    font-size:20px;
+    box-shadow: inset -3px -3px 5px darkgreen;
+}
+
+
+button:hover {
+    background-color: mediumseagreen; /* Green #4CAF50;*/
+    color: black;
+}
+
+
+button:focus {outline:0;}
+
+button:active {
+    background: green;
+    color:white;
+    cursor:pointer;
+    outline:none;
+    box-shadow: inset 3px 3px 3px darkgreen;
+}
+
+#equal {
+     width: 109px;
+
+}
+
+#clear {
+     width: 109px;
+     margin-right:60px;
+     margin-left:10px;
+
+}
+
+#clear:active {
+    background:red;
+    color:white;
+    cursor:pointer;
+    outline:none;
+    box-shadow: inset 3px 3px 3px #555;
+}
+
+
+#screenDiv {
+    background-color: darkslategray;
+    margin: auto;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    border: 3px solid lightgrey;
+    width: 250px;
+    min-height: 30px;
+    vertical-align: middle;
+    text-align: right;
+    padding: 10px;
+    color:lightgreen;
+    font-family: Courier;
+    font-size:25px
+
+}
+
+
+ #row {
+      display: inline-block;
+      width:300px;
+      margin-top:10px;
+
+}
+
+
+}
+
+
+</style>
+
+<body background="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/OVoiMR9/scrolling-numbers-matrix-style-animation_4jn7fl3-l__S0000.jpg">
+<center>
+
+<br><br>
+
+
+<table border=2 bgcolor="dimgrey">
+<tr><td align="center">
+<font color="lightgreen" face="Courier" size=2>
+The Matrix Calculator
+<br>
+        <div id="screenDiv"></div>
+<br>
+</td></tr>
+<tr><td align="center">
+         <div id="main">
+               <div id="row" >
+                    <button  id="clear" onClick="doClear();">CLR</button>
+                     <button value="+" onClick="doOper('+');">+</button> 
+               </div>
+                 <br><br>
+
+
+
+               <div class="row">
+                     <button onClick="doNum(7);">7</button>
+                     <button onClick="doNum(8);">8</button>
+                     <button onClick="doNum(9);">9</button>
+                     <button onClick="doOper('-');">-</button>
+                 </div>
+                 
+
+
+                 <br>
+                 <div class="row">
+                     <button onClick="doNum(4);">4</button>
+                     <button onClick="doNum(5);">5</button>
+                     <button onClick="doNum(6);">6</button>
+                     <button onClick="doOper('*');">x</button>
+                 </div>
+                 <br>
+                 <div class="row">
+                     <button onClick="doNum(1);">1</button>
+                     <button onClick="doNum(2);">2</button>
+                     <button onClick="doNum(3);">3</button>
+                     <button onClick="doOper('/');">/</button>
+                 </div>
+                 <br>
+                 <div class="row">
+                     <button onClick="doNum(0);">0</button>
+                     <button id="equal" onClick="doEqual();"> = </button>
+                     <button id="period" onClick="doPeriod();">.</button>
+                 </div>
+                         
+         </div>
+         <br><br>
+</td></tr>
+</table>
+</font>
+<script>
+
+var output="",
+    outputLimit=16;
+    
+var screen = document.getElementById("screenDiv");
+
+
+
+ function doNum(number) {
+		          
+
+
+		            if(output.length > outputLimit ) {
+		                alert("Sorry no more input is allowed");   
+		            }  else output = screen.innerHTML +=number;	                  
+
+		       
+  } //close function
+        
+
+ function doOper(operator) {
+      			         
+					         if(screen.innerHTML === "") {
+					            screen.innerHTML = "";
+					        }
+					        
+					        else if(output) {
+					        
+					            screen.innerHTML += operator;
+					            //output = screen.innerHTML = output.concat(operator);
+					            
+					        }
+		          
+ } //close oper function
+          
+  
+
+    
+ function doPeriod() {
+
+      if(screen.innerHTML === "") {     
+          output= screen.innerHTML = "0."
+            
+        }
+        
+        else if(screen.innerHTML === output) {     
+          output= screen.innerHTML = screen.innerHTML+"."
+            
+        }
+        
+ } //close period
+
+function doClear() {
+    
+         output = screen.innerHTML = ""
+                
+} //close clear
+
+
+function doEqual() {
+        
+      if(screen.innerHTML != "") {
+          
+        screen.innerHTML = eval(output);
+      }
+        
+      else {
+            screen.innerHTML = "";
+      }
+          
+ }
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+        

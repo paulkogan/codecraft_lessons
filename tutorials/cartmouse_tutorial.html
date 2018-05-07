@@ -1,0 +1,132 @@
+<html>
+<head>
+<title>Tutorial: Caretesian Mouse
+</title>
+<style>
+
+p.ex1 {
+    margin-left: 5cm;
+}
+
+p {
+		margin: 5px 50px 5px 50px;
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+<center>
+<img width = 300 src = "http://www.learncodecraft.com/images/cc_logo_2.png"><br>
+<font face="avenir">
+<p>
+<h2>Cartesian Mouse</h2>
+<br>
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>	
+<td align = justify>
+In this project, you are going to graphically show your mouse position on the Cartesian plane, and then calculate the angle to the mouse position. 
+<br><br>
+Here is what the finished project looks like: <a href = "http://www.learncodecraft.com/projects/cartesian_mouse.html">here</a>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>
+<td align = "center"><br><br><b>Directions</b></td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>	
+<td align = justify>
+<ol style="margin-left: 10px;">
+
+<li>If you are coding outside of WoofJS.com (like in Sublime), insert the Woof_JS source tag into the &lt;head&gt;section of your project page:
+  <p class="tab"><font color='blue' face="courier"> 
+ &lt;script src="https://rawgit.com/stevekrouse/WoofJS/master/dist/woof.js"&gt;&lt;/script&gt;
+</font>	</p>
+Your code now speaks Woof!<br>
+<br>
+<li>Setup your background to be an all-black, or another dark color.
+<br><br>
+<li>Declare the two cartesian grid lines using the <font color='blue' face="courier">new Line({})</font> call. In the example they are red and green, but use any colors you like.
+<br><br>
+<li>Create a text label on the upper left of the screen using the <font color='blue' face="courier"> new Text({})</font> call.
+<br><br>
+<li>Setup a forever function.
+	<p class="tab"><font color='blue' face="courier">
+	forever( function() {<br>
+    &nbsp; &nbsp; YOUR CODE GOES HERE<br>
+	});<br>
+	</font>	</p>
+<br>
+This will take care of showing your mouse position in real time. <br>
+<br>
+<li>In the forever function, update the mousePosition text label to show the X and Y coordinates of the mouse.
+<br><br>
+<li>In the top of the program, before the forever function, declare the 3 lines that will connect with the position of your mouse: xLine (red), yLine (green), rLine (blue). You'll then modify them inside the forever function. 
+<br><br>
+
+<li>Start with the xLine. Back in the forever function, update the endpoints for the xLine to start on the Y axis and end on the mouse position.
+<br>
+<br>
+<li>Once you get it working, you may want to group the 4 endpoint variables into one expression as follows:
+<br>
+	<p class="tab"><font color='blue' face="courier">
+[x,y,x1,y1] = [a,b,c,d]<br>
+	</font>	</p>
+This will help make your program readable and easier to understand. 
+<br><br>
+<li>Repeat for the other two lines. Does everythig look good so far?
+<br><br>
+<li>Declare a 2nd textLabel to show angleDegrees.
+<br><br>
+<li>Calculate degrees for the mouse X and Y position using a Math.atan2 trig function. The degrees should be a number between 0 and 360.  Show the degrees in the angleDegrees label. 
+<br>
+<li>Calculate radians (between 0 and 2PI)  and show that as well.
+<br><br>
+<li>Add a descriptive label on the upper left of the canvas with the name of this project, and any other info you want to show the user. 
+<br><br>
+<li>Keep working on the project and customizing until you are satisfied. 
+Ask your teacher/CIT to upload it to your public folder. 
+<br>
+</ol>
+
+
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+<center>
+<br><br>
+(c) 2017 by Code Craft Academy
+</center>
+
+
+
+
+</font>
+
+</body>
+</html>

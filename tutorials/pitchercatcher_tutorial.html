@@ -1,0 +1,135 @@
+<html>
+<head>
+<title>Tutorial: Pitcher GETs Catcher
+</title>
+<style>
+
+p.ex1 {
+    margin-left: 5cm;
+}
+
+p {
+		margin: 5px 50px 5px 50px;
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+<center>
+<img width = 300 src = "http://www.learncodecraft.com/images/cc_logo_2.png"><br>
+<font face="avenir">
+<p>
+<h2>Pitcher GETs Catcher</h2>
+<br>
+<table width = "100%"> 
+<colgroup>
+<col width="120 px"/>
+<col width="450 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>	
+<td align = center>
+
+If you buy tickets on Fandango or look up the location of a restaurant on Google Maps, you are using the web in one of its most common use-cases: gathering information from users and sending it to a server for processing. Over the next series of exercises, we will learn how to do that. 
+<br><br>
+You can start by <a href = "https://www.w3schools.com/tags/ref_httpmethods.asp" target="_blank">reading about the two most common methods for doing this: GET and POST</a>
+<br><br>
+For this exercise, we will use GET to send data (name/value pairs) from one page to another using <i>a URL query string</i>  like <font color='blue' face="courier">
+?meat=chicken&amp;veg=broccoli.
+</font> 
+
+The page sending is called &quot;The Pitcher&quot; and the page getting the data and displaying it is, of course,  &quot;The Catcher.&quot;
+<br><br>
+
+Here is <a href = "http://www.learncodecraft.com/projects/pitcherpage.html" target="_blank">an example of a finished project</a>
+</td>
+<td></td>
+</tr></table>
+
+
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>
+<td align = "center"><br><br><b>Directions</b></td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>	
+<td align = justify>
+<ol style="margin-left: 10px;">
+
+
+<li>Setup the Pitcher page with 2 (or more) input fields and a &quot;Send&quot; button.
+<br><br>
+<li>Think of some fun info (name/value pairs) you want to ask of your user and then display on the other page. For example, a band and their best song, a restaurant and their rating of it, a country they have visited and how to say &quot;hello&quot; in the local language, etc
+<br><br>
+Label your input fields appropriately so users can enter in the right info. 
+<br><br>
+<li>Write a function that runs when the button is pressed. In it, take the values from the input fields, and send them to the catcher page using<br>
+<br>
+
+<font color='blue' face="courier">
+window.location=&quot;catcherpage.html?name1=value1&amp;name2=value2&quot;
+</font>
+
+<br><br>
+<li>Now setup a Catcher page with a label element using &lt;text&gt; or &lt;p&gt;
+<br><br>
+<li>Have the page grab the entire URL query string using<br>
+<font color='blue' face="courier">
+ var query = window.location.search
+</font>
+and display it on the page
+<br><br>
+<li>Trim the &quot;?&quot; from the query, and also make any space characters look normal using <font color='blue' face="courier">decodeURIComponent</font>
+<br><br>
+<li>Split the query into its pairs using <font color='blue' face="courier">query.split</font> and display each pair separately.
+remember: split breaks up a phrase and puts all the pieces into an array. 
+<br><br>
+<li>Now split each pair using pair.split and display the name and the value separately.
+<br><br>
+<li>Write a function <font color='blue' face="courier">getValue(name)</font> that, given a name, returns the corresponding value.
+<br><br>
+<li>Finally, use getValue to display the data you gathered in a funny and relevant sentence, ie.
+<br><br>
+<i>If you're walking down the street in <b>Thailand</b>, you want to say <b>Sawasdee</b> to greet people. </i>
+ <br><br>
+<li>EXTRA CREDIT: add a searchbox where you can enter a name to get its value
+<br><br>
+<li> Finish the project till it looks perfect to you.
+<br><br>
+
+</ol>
+
+Have fun and good luck!
+
+
+
+<br>
+</td>
+<td></td>
+</tr></table>
+
+<center>
+
+<br><br>
+(c) 2017 by Code Craft Academy
+</center>
+<br><br>
+
+
+</font>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<html>
+<head>
+<title>Tutorial: TIC-TAC-TOE
+</title>
+<style>
+
+p.ex1 {
+    margin-left: 5cm;
+}
+
+p {
+		margin: 5px 50px 5px 50px;
+	}
+
+
+</style>
+
+
+</head>
+
+<body>
+<center>
+<img width = 300 src = "http://www.learncodecraft.com/images/cc_logo_2.png"><br>
+<font face="avenir">
+<p>
+<h2>Tic-Tac-Toe (P5 version)</h2>
+<br>
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>	
+<td align = justify>
+Re-create the classic game using P5.js. Apply your own design, and come up with a clever algorithm to figure out the win condition. 
+ <br>
+To see a working example click <a href = "http://www.learncodecraft.com/projects/tictactoe.html">here</a>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+<table width = "100%"> 
+<colgroup>
+<col width="100 px"/>
+<col width="400 px"/>
+<col width="100 px"/>
+</colgroup>
+<tr>
+<td></td>
+<td align = "center"><br><br><b>Directions</b></td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>	
+<td >
+<ol style="margin-left: 10px;">
+
+<li>Set up your HTML page, insert the P5.js source tag into the  &lt;head&gt;section of your project page:
+  <p class="tab"><font color='blue' face="courier"> 
+ &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"&gt;&lt;/script&gt;
+</font>	</p>
+Your code now speaks P5!
+<br>
+<br>
+<li>Create a 3x3 grid on the canvas. Use rect() or line(). 
+<br>
+<br>
+<li>Create a 3x3 array that will hold the value of each square. Use a nested for-loop for a 2-D array. 
+<br>
+<br>
+<li>Make it so that when you click on the upper-left square, it gets an X, and the value in the array for that square changes.
+
+One way to do it is with 
+<pre><font color='blue' face="courier">
+     function mouseClicked()  
+ </font>
+</pre>
+<li>To make it handy for you to debug, add a label element to your HTML page, above the canvas.
+Then display the Row and Column Clicked and the Value, in the label. 
+<br>
+<br>
+<li>Write a function that figures out which square is being clicked based on mouse position, and make changes that to square in the grid and on the canvas.
+<br>
+<br>
+<li>Keep track of whose turn it is, Player 1 or Player 2, and change the square to an X or a O, depending on the player. 
+<br>
+<br>
+<li>Check if any player has 3 in a row and announce a winner if so. As you are adding up the rows and columns, display the results in the label so you can check yourself.  
+<br>
+<br>
+<li> Test and finish the project till it looks perfect to you.
+
+</ol>
+<br>
+</td>
+<td></td>
+</tr></table>
+
+
+<center>
+<br><br>
+<br><br>
+(c) 2018 by Code Craft Academy
+</center>
+
+
+
+</body>
+</html>

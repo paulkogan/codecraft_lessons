@@ -1,0 +1,180 @@
+<html>
+<head>
+<title>Weather - Get it!</title>
+</head>
+
+<style type ="text/css">
+
+body{
+  background-color:orange;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+button{
+  background-color:lightblue;
+  display: inline-block;
+  padding: 4px 8px;
+  font-size:20px;
+  border: 1;
+  cursor:pointer;
+
+}
+input:focus{
+  outline:0;
+}
+button:focus{
+  outline:0;
+}
+
+</style>
+
+<body>
+
+<center> 
+<h2>GET the Weather </h2>
+<font size=3>
+Find out the weather in any city
+<br> <br> 
+
+City, country: <input type = "text"  size=20 id="city" value="New York">
+
+<br>
+
+<br>
+<button id="sendText" onClick = "getWeather();">Show me!</button> 
+<br>
+<text id="listBox" rows="3" cols="50"></text><br>
+
+
+<script>
+document.body.style.backgroundColor = "goldenrod";
+var listBox= document.getElementById("listBox");
+var APIKey="9c63f690cc02fcccf8816e466e64f2df"
+
+var temp=""
+var city, country=""
+var desc=""
+
+function getWeather() {
+   var output = ""
+   var cityName=document.getElementById("city").value;
+   
+   var requestString = "http://api.openweathermap.org/data/2.5/weather?q="+cityName+"&APPID=9c63f690cc02fcccf8816e466e64f2df&units=imperial"
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', requestString, true);
+
+
+  xhr.addEventListener("readystatechange", function()  {
+    if (xhr.status === 200) {
+        if (xhr.readyState === 4) {
+
+         var response = JSON.parse(xhr.responseText);
+         var responseString = JSON.stringify(response);
+         listBox.style.color = "black";
+         temp = response.main.temp
+         city = response.name
+         country = response.sys.country
+         desc = response.weather[0].description
+         var iconCode = response.weather[0].icon
+         var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png"
+
+         output += "<br>"  
+         output += "<img width=100 src="+iconUrl+">"
+         output += "<br>"
+         output += "<font size='6'>"
+		     output += "city: " +city+",  "+country;
+         output += "<br>"
+         output += "temp: " +temp;
+         output += "<br>"
+         output += "conditions: " +desc;
+         output += "<br>"
+         output += "</font>"
+
+         output += "<br>"        
+         output += "<br>"
+         output += "<br>"        
+         output += "<br>"
+         output += "<br><br> Resp. Status: " + xhr.status + "ready state: "+ xhr.readyState +"<br><br>"
+
+         output+="Parsed JSON  = "+responseString;
+      
+
+        var weatherConditions  = desc.toLowerCase()
+
+               if(weatherConditions.includes("clouds")){
+                            document.body.style.backgroundImage = "url('https://media.giphy.com/media/10539PNHnSuPTi/giphy.gif')";
+
+               } else if(weatherConditions.includes("cloudy")){
+                            document.body.style.backgroundImage = "url('https://media.giphy.com/media/10539PNHnSuPTi/giphy.gif')";
+
+               } else if(weatherConditions.includes("haze")){
+                            document.body.style.backgroundImage = "url('https://media.giphy.com/media/SkjRBsgBVMUQo/giphy.gif')";
+
+               } else if(weatherConditions.includes("mist")){
+                            document.body.style.backgroundImage = "url('https://media.giphy.com/media/sSEQhloy0DHX2/giphy.gif')";
+
+                           // https://78.media.tumblr.com/c160bc59cbc9c73bac37379c36a12d09/tumblr_olx2ge6yUr1vomjnuo1_500.gif
+
+               } else if(weatherConditions.includes("sun")){
+                            document.body.style.backgroundImage = "url('https://media.giphy.com/media/UL3OeJc5w7qRq/source.gif')";
+
+                } else if(weatherConditions.includes("clear")){
+                            document.body.style.backgroundImage = "url('https://media.giphy.com/media/UL3OeJc5w7qRq/source.gif')";
+                } else if(weatherConditions.includes("clear sky")){
+                            document.body.style.backgroundImage = "url('https://media.giphy.com/media/UL3OeJc5w7qRq/source.gif')";
+
+                } else if(weatherConditions.includes("rain")){
+                           document.body.style.backgroundImage = "url('https://media.giphy.com/media/l0Iy5fjHyedk9aDGU/source.gif')";
+                           listBox.style.color = "white";
+
+               } else if(weatherConditions.includes("thunderstorm")){
+                           document.body.style.backgroundImage = "url('https://media.giphy.com/media/j69Ma1PlscvTO/giphy.gif')";
+                           listBox.style.color = "white";
+
+               } else if(weatherConditions.includes("snow")){
+                            document.body.style.backgroundImage = "url('https://media.giphy.com/media/7Bgpw7PwdxoDC/giphy.gif')";
+               } else{ 
+                 document.body.style.backgroundImage = "url('https://wallpapercave.com/wp/K0HCxt0.jpg')";
+                 listBox.style.color = "white";
+               }  //weatherConditions
+                 
+
+           } //if readyState = 4   
+
+
+ 
+        } //if resp=200
+
+       if (xhr.status === 404) {
+                   document.body.style.backgroundImage = "url('https://wallpapercave.com/wp/K0HCxt0.jpg')";
+                   listBox.style.color = "white";
+                  output = "<br><br> I'm sorry, I dont know that city!<br><br><br><br> <br><br>Status: " + xhr.status + "     API response: "+ xhr.readyState;
+                 listBox.innerHTML = output; 
+
+      }
+
+      listBox.innerHTML = output; 
+
+     }, true); //event listener
+     xhr.send();  
+
+
+
+      
+
+}; //close function
+
+
+
+
+
+
+
+</script>
+</center>
+</body>
+</html>

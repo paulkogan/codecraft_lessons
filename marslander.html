@@ -1,0 +1,546 @@
+<HTML>
+<head>
+<title>Mars Lander</title>
+
+<script src="https://rawgit.com/stevekrouse/WoofJS/master/dist/woof.js"></script>
+<style>
+</style>
+</head>
+<body>
+
+
+
+<script>
+
+//<embed src="http://www.learncodecraft.com/images/lunarlandermusic.wav" autostart="true" loop="true" hidden="true">  
+
+setBackdropURL("https://upload.wikimedia.org/wikipedia/commons/8/80/Hyades.jpg")
+setBackdropStyle("cover")
+var planetSize = 100;
+var gravitySize = 10;
+
+//http://www.neutralzone.de/database/PreFederation/20thcentury/ApolloProgram_LunarModule.gif
+
+
+var lander = new Image({
+    url: "http://images2.storyjumper.com/transcoder.png?id=2fbb608172&width=496&height=353&rotate=-89",
+    height: 45,
+    width: 45,
+    x: minX+220,
+    y: maxY-50,
+    showing: true
+
+})
+
+
+     //http://www.neutralzone.de/database/PreFederation/20thcentury/ApolloProgram_LunarModule.gif
+    //url: "http://www.nebomusic.net/AsteriodScripts/LunarLander.png",
+
+
+var nameText = new Text({
+    text: () => "MARS LANDER",
+    size: 20,
+    fontFamily: "courier",
+    textAlign: "left",
+    color: "lightblue",
+    x: minX+30,
+    y: 270, 
+    showing: true
+});
+
+
+
+var speedText = new Text({
+    text: () => "SpeedText",
+    size: 20,
+    fontFamily: "courier",
+    textAlign: "left",
+    color: "lightblue",
+    x: minX+30,
+    y: 230, 
+    showing: true
+});
+
+
+var  fuelText = new Text({
+    text: () => "---",
+    size: 20,
+    fontFamily: "courier",
+    textAlign: "left",
+    color: "lightblue",
+    x: minX+30,
+    y: 210, 
+    showing: true
+});
+
+var  landingsText = new Text({
+    text: () => "---",
+    size: 20,
+    fontFamily: "courier",
+    textAlign: "left",
+    color: "lightblue",
+    x: minX+30,
+    y: 190, 
+    showing: true
+});
+
+
+
+
+var redBG = new Rectangle({
+					  width: 250, 
+					  height: 20, 
+					  color: "red",
+					  x: minX+120,
+    				  y: 230, 
+					  brightness: 50,
+					  showing: false
+					})
+
+redBG.sendToBack();
+
+var newsText1 = new Text({
+    text: () => "",
+    size: 40,
+    fontFamily: "courier",
+    textAlign: "left",
+    color: "lightblue",
+    x: -100,
+    y: 0, 
+    showing: true
+});
+
+
+var newsText2 = new Text({
+    text: () => "",
+    size: 20,
+    fontFamily: "courier",
+    textAlign: "left",
+    color: "lightblue",
+    x: -200,
+    y: 100, 
+    showing: true
+});
+
+var newsText3 = new Text({
+    text: () => "",
+    size: 20,
+    fontFamily: "courier",
+    textAlign: "left",
+    color: "lightblue",
+    x: -200,
+    y: 80, 
+    showing: true
+});
+
+
+var creditText = new Text({
+    text: () => "Sound design by Jacob Kogan",
+    size: 16,
+    fontFamily: "courier",
+    textAlign: "left",
+    color: "black",
+    x: minX+50,
+    y: minY+20, 
+    showing: true
+});
+
+
+var planetX  = Math.random() * (maxX*2-200) - (maxX-200);
+
+var p2_gravity = new Circle({
+	radius: planetSize+gravitySize,
+	brightness: 30,
+    color: "orange",
+    x: planetX,
+    y: maxY-80,
+})
+
+
+var planet2 = new Image({
+    url: "http://www.tarotarcana.info/wp-content/uploads/2015/02/Jupiter.png",
+    height: planetSize,
+    width: planetSize,
+    x: planetX,
+    y: maxY-80,
+    showing : true
+})
+
+
+planet2.sendToBack();
+p2_gravity.sendToBack();
+
+//http://www.conradmansion.com/crash.png
+
+var crash = new Image({
+    url: "http://images.clipartpanda.com/crash-clipart-crash.png",
+    height: 130,
+    width: 130,
+    x: 0,
+    y: 0,
+    showing : false
+})
+
+
+var fireLeft = new Line({
+					  color: "red", 
+					  width: 3, 
+					  x: 0, 
+					  y: 0,
+					  x1: 0, 
+					  y1: 0, 
+					  showing: false
+})
+
+var fireRight = new Line({
+					  color: "red", 
+					  width: 3, 
+					  x: 0, 
+					  y: 0,
+					  x1: 0, 
+					  y1: 0, 
+					  showing: false
+})
+
+
+var thrustAudio = new Audio("http://www.learncodecraft.com/images/rocket7.wav");
+var bgAudio = new Audio("http://www.learncodecraft.com/images/lunarlandermusic.wav")
+
+var box = 18
+
+var downspeed = 8
+var speeddamper = 20
+var sidespeed = .5
+var gravity = 4
+var gravitydamper = 40
+var damper = 100
+var thrustdamper = 50
+var thrust = 0
+var deltaThrust=.5
+var fuel = 1000
+var landings = 0
+
+
+
+
+//ground variables
+
+var landed = false
+var gameOn = false
+var flight = 0;
+var numberOfRects = 80
+var rectWidth = 80
+var rectColor = "firebrick"
+var targetColor = "yellow"
+var topColor = "yellow"
+var landingPadWidth = 60
+var rocks = []
+var lines = []
+var touching = false
+var rockTop = 0
+
+
+
+
+//============== ACTION =============================
+
+//first time
+newsText1.x=-100  
+newsText2.x=minX+300
+newsText3.x=minX+300
+newsText2.text = "Your Mission: use UP-ARROW to fire thrusters. " 
+newsText3.text =  "Land ship gently on a yellow landing pad."
+setUpGround() 
+lander.showing = false
+creditText.sendToFront()
+
+forever(() => {
+
+speedText.text = "DOWNSPEED : "+parseInt(downspeed);
+fuelText.text = "FUEL : "+parseInt(fuel)
+landingsText.text = "LANDINGS : "+landings  
+
+if (gameOn) doAction(); else doLobby();
+
+
+function doLobby() {
+  //scoreBoardText.text="Level: "+ level+"     Lives: "+ lives+"    Points: " + points;
+
+  newsText1.showing = true; //start with this
+  newsText2.showing = true; //start with this
+
+  if (flight === 0 )   {
+             newsText1.text = "READY?" 
+             fuel = 1000
+             //bgAudio.stop();
+  } else {  //not a first flight
+              newsText2.x = -100
+              
+              if   (fuel <= 0) {
+                     newsText2.text = "A NEW MISSION?"
+                     bgAudio.pause();
+                     bgAudio.currentTime = 0;
+              } else {
+                      newsText2.text = "...ANOTHER TRY?"
+              }  
+
+
+  }
+
+  if (keysDown.includes("Y") || keysDown.includes('SPACE') ) {
+                    //if (flight === 0) 
+                    bgAudio.play();
+                    creditText.showing=false
+                    bgAudio.volume=0.7
+                    newsText1.showing = false;
+                    newsText2.showing = false;
+                    newsText3.showing = false;
+                    lander.showing = true
+                    crash.showing = false
+                    lander.x = minX+220,
+                    lander.y = maxY-200,
+                    flight +=1;
+                    lander.showing=true
+                    landed = false;
+                    gameOn = true;
+                    setUpGround()
+                    if   (fuel <= 0){
+                        flight = 1;
+                        landings = 0
+                        fuel = 1000
+                    }
+
+          }
+
+} //do lobby
+
+
+
+function doAction() {
+
+
+
+
+
+//**************MOVE THE LANDER ***********************
+if (landed === false) {
+   //adjust speed by gravity
+   downspeed += gravity/gravitydamper
+
+   //adjust speed by thrust
+   downspeed -= thrust/thrustdamper 
+
+
+	//MOVE THE LANDER
+   lander.y -= downspeed/speeddamper;
+   lander.x += sidespeed;
+
+}
+
+
+//light up Hifgh-speed indicator
+if (downspeed>10)  redBG.showing = true
+else redBG.showing = false
+
+//set limits to speed
+  if (downspeed <  (-15)) {
+  	downspeed = (-15)
+  }
+
+ if (downspeed >  (25)) {
+  	downspeed = 25
+  }
+
+
+
+   if (keysDown.includes("UP") && fuel > 0){
+       thrustAudio.play()
+	     thrust += deltaThrust;
+       fuel -= thrust/30;
+
+       fireRight.showing = true
+       fireRight.x=lander.x+10
+       fireRight.x1=lander.x
+       fireRight.y=lander.y-20
+       fireRight.y1=lander.y-20-thrust*3
+
+       fireLeft.showing = true
+       fireLeft.x=lander.x-10
+       fireLeft.x1=lander.x
+       fireLeft.y=lander.y-20
+       fireLeft.y1=lander.y-20-thrust*3
+
+   } else {  //not thrusting
+   	thrust = 0
+   	fireRight.showing=false
+   	fireLeft.showing=false
+
+   }
+
+
+
+//pass thru right side
+if (lander.x > maxX-30) lander.x = minX+30
+
+
+   //check if hit
+   touching = false
+   newsText1.text = ""
+   newsText2.text = ""
+   rocks.forEach(function (rock) {
+	
+           if (lander.touching(rock)  && (   
+                      ((lander.x+box>(rock.x-rock.width/2)) &&  lander.x<rock.x)   || 
+                      ((lander.x-18<rock.x+rock.width/2) && lander.x > rock.x)     
+              )) {
+   					fireRight.showing=false
+   					fireLeft.showing=false
+            newsText1.showing = true
+            newsText2.showing = true
+            touching = true
+            rockTop = (rock.y+(rock.height/2))
+            gameOn = false; 
+ 
+
+                    if (rock.width >= landingPadWidth && downspeed < 11 && (lander.x+27<(rock.x+rock.width/2)) && (lander.x-17>rock.x-rock.width/2) ) {
+                         landed = true
+                         landings += 1; 
+                         lander.y +=3
+                         thrust = 0
+                         newsText1.x=-250
+                         newsText1.text = "NICE LANDING!"
+                         if (landings===1)  newsText1.text += " WELCOME TO MARS!"
+
+                         
+
+                    } else {
+                      newsText1.x=-100
+                      newsText1.text = "C R A S H !"
+                    	landed = true
+                    	lander.showing = false
+                    	crash.x = lander.x
+                    	crash.y = lander.y
+                    	crash.showing = true
+                    
+
+                    }  //check good landing
+
+  
+
+          
+  
+            
+
+
+    
+
+           }//close if rock 
+
+	});  //close foreach
+
+
+} //close do action
+
+
+}) //close forever loop
+
+
+function setUpGround() { 
+
+    var rectY = -200
+    var rectDirection = 1 
+    var rectH = 400
+    var yDrop = 10
+    var prevY = rectY 
+    var lastX=minX
+
+
+   //clear landsacpe
+   rocks.forEach(function (rock) {
+              rock.delete() 
+              //rocks.remove(rock)
+     })
+    rocks.splice(0,rocks.length)
+
+    
+   if (lines.length > 0) {
+             lines.forEach(function (pad) {
+                        //pad.showing=false; 
+                        pad.delete()
+
+                        //rocks.remove(rock)
+               })
+              lines.splice(0,lines.length)
+
+    }
+
+
+
+		for (i=0;i<numberOfRects;i++) {
+					prevY = rectY;
+					
+					yDrop = Math.random() * (50) + 10;
+          rectWidth = Math.random() * (70) + 5;
+
+					
+					rectY = rectY + yDrop*rectDirection
+					if (rectY<-300) {
+						rectY = -300
+					}
+					
+                    
+
+ 					if (i%3===0) {
+					      rectDirection *= -1
+					}
+
+					var moonRock = new Rectangle({
+					  width: rectWidth+5, 
+					  height: rectH, 
+					  color: rectColor,
+					  x:lastX+rectWidth/2,
+					  y:rectY-rectH/2
+					})
+                    
+                    rocks.push(moonRock);
+
+                     if (rectWidth >landingPadWidth)  {
+  							topColor = targetColor
+
+                     } else topColor = rectColor
+
+
+					var topLine = new Line({
+					  color: topColor, 
+					  width: 3, 
+					  x: lastX, 
+					  y: rectY,
+					  x1: lastX+rectWidth, 
+					  y1: rectY
+					})
+
+
+					var connectLine = new Line({
+					  color: rectColor, 
+					  width: 1, 
+					  x: lastX, 
+					  y: rectY,
+					  x1: lastX,  
+					  y1: prevY
+					})
+
+          lines.push(topLine);
+          lines.push(connectLine);
+
+      lastX = lastX+rectWidth
+
+ 		}  // for loop
+
+
+}
+
+
+</script>
+</body>
+</HTML>
+

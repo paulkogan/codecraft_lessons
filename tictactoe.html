@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tic Tac Toe</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/addons/p5.dom.js"></script>
+
+</head>
+<body>
+
+<h2> TIC-TAC-TOE</h2>
+<p id=label2></p>
+<p id=label>WIN-CHECK =></p>
+<script type='text/javascript'>
+var gridsize = 3;
+var side = parseInt(400/gridsize);
+var grid = []
+var playerTots = [0,3,30]
+var base = 0
+var player = 1
+var sqColor = 'green'
+var smaller = 20
+var moves = 0
+
+function doGrid(val) {
+		//make an array for the values
+		for (var c = 1; c <= gridsize; c++) {
+				grid[c] = [];
+				for (var r = 1; r <= gridsize; r++) {
+					grid[c][r] = val
+				}
+		}     
+} // doGrid
+
+
+function setup(){
+	createCanvas(600, 600);
+    strokeWeight(4);
+	for (var r = 1; r < gridsize; r++) {
+          line(0,r*side,side*gridsize,r*side)
+    }
+	for(var c = 1; c<gridsize; c++){
+          line(c*side,0,c*side, side*gridsize)				
+	}
+	doGrid(0);
+    label2.innerHTML = "Its your turn,  Player "+player+"!"
+
+} //setup
+
+
+
+function doSquare(c,r) {
+   if (grid[c][r]===0) {
+   	      moves ++;
+   	      grid[c][r] = (player===1) ? 1 : 10
+   	      strokeWeight(6);
+   	      stroke("red");   
+          if (player===1) {
+               line(+smaller+(c-1)*side,+smaller+((r-1)*side),-smaller+(c*side),-smaller+(r*side))
+               line((c*side)-smaller,((r-1)*side)+smaller,((c-1)*side)+smaller,(r*side)-smaller) 
+          } else {
+          	     ellipse(  ((c-1)*side)+side/2, ((r-1)*side)+side/2,side-smaller,side-smaller) 
+          } 
+
+  
+		   if(hasWon(c,r,playerTots[player])) {
+		            label2.innerHTML = "Player "+player+" has won!!"
+		  			doGrid(1); //fill it so the game stops
+		         	return
+		   }
+           
+           if (moves===9) {
+					label2.innerHTML = "Its a TIE, no winner."
+		         	return
+           }
+
+		   player = (player === 1) ? 2 : 1 
+		   label2.innerHTML = "Its your turn, Player "+player+"!"
+   } //if
+} //doSquare
+
+
+
+
+  function mouseClicked() {
+		    let clickCol = 1+Math.floor(mouseX/side)
+		    let clickRow = 1+Math.floor(mouseY/side)
+		    doSquare(clickCol,clickRow)
+
+
+  } //mouseClicked
+
+
+function hasWon(c,r,wonNum) {
+		   let cSum, rSum, dSum = 0
+		   cSum = grid[c].reduce(add)
+		   rSum = [grid[1][r],grid[2][r],grid[3][r]].reduce(add)
+		   dSum1 = [grid[1][1], grid [2][2], grid[3][3]].reduce(add)
+		   dSum2 = [grid[1][3], grid [2][2], grid[3][1]].reduce(add)	   
+		   label.innerHTML = "WIN-CHECK => colSum: "+cSum+"  rowSum: "+rSum+"   DiagUp: "+dSum2 +"   DiagDn: "+dSum1
+		    if ( [cSum,rSum,dSum1,dSum2].includes(wonNum) ) { 	    
+		    		return true; 
+		    } else  {		    		
+		     		return false;
+		    }
+
+}
+
+function add (total,num) {
+	return total + num
+}
+
+
+//manual way to find row and col
+  function mouseClickedManual() {
+    if (mouseX>0&& mouseX<side && mouseY>0 && mouseY<side) 
+    {
+        doSquare(1,1)
+    }
+
+
+    if (mouseX>side && mouseX<side*2 && mouseY>0 && mouseY<side) 
+    {
+        doSquare(2,1)
+    }  
+
+
+   if (mouseX>side*2 && mouseX<side*3 && mouseY>0 && mouseY<side) 
+     {
+        doSquare(3,1)
+     }  
+
+} 
+
+</script>
+
+</center>
+
+
+</body>
+</html>
+
+
